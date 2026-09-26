@@ -2,7 +2,7 @@
 
 __version__ = "0.1.0"
 
-from .config import MODEL_CONFIGS, JUDGE_MODEL, RUBRIC_DIMENSIONS, JURY_SIZE
+from .config import MODEL_CONFIGS, JUDGE_MODEL, RUBRIC_DIMENSIONS, JURY_SIZE, PARALLEL_JUDGE
 from .models import ModelClient, ModelResponse
 from .judge import Judge, Jury, PositionBiasChecker, JudgeScore, JudgeVerdict
 from .harness import EvaluationHarness, EvaluationResult
@@ -12,6 +12,7 @@ __all__ = [
     "JUDGE_MODEL", 
     "RUBRIC_DIMENSIONS",
     "JURY_SIZE",
+    "PARALLEL_JUDGE",
     "ModelClient",
     "ModelResponse",
     "Judge",

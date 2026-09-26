@@ -94,9 +94,9 @@ The dashboard provides:
 ## Cost Estimation
 
 Rough costs for a full evaluation (25 tests × 2 models):
-- Claude 3 Haiku: ~$0.10-0.20
-- Claude 3.5 Sonnet: ~$1.00-2.00
-- GPT-4o Mini: ~$0.05-0.10
-- GPT-4o: ~$1.50-3.00
+- Claude 3 Haiku: ~$0.30-0.50 (candidate + 3 judge calls)
+- Claude 3.5 Sonnet: ~$3.00-5.00 (candidate + 3 judge calls with Claude 3.5 Sonnet as judge)
+- GPT-4o Mini: ~$0.15-0.30 (candidate + 3 judge calls)
+- GPT-4o: ~$4.50-7.00 (candidate + 3 judge calls)
 
-Costs include both candidate model calls and judge model calls (3x multiplier).
+**Important**: Costs include both candidate model calls AND judge model calls (3x multiplier). The judge model (Claude 3.5 Sonnet) is typically more expensive than candidate models, so total cost is significantly higher than just candidate model costs.

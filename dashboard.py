@@ -137,7 +137,9 @@ with tab2:
         "latency_ms": ["mean", "std"],
         "cost_usd": ["mean", "sum"],
         "input_tokens": "sum",
-        "output_tokens": "sum"
+        "output_tokens": "sum",
+        "judge_input_tokens": "sum",
+        "judge_output_tokens": "sum"
     }).round(2)
     
     model_metrics.columns = ["_".join(col).strip() for col in model_metrics.columns.values]
@@ -275,7 +277,7 @@ with tab4:
     display_columns = st.multiselect(
         "Select columns to display",
         display_df.columns,
-        default=["test_id", "category", "model_name", "overall_score", "latency_ms", "cost_usd"]
+        default=["test_id", "category", "model_name", "overall_score", "latency_ms", "cost_usd", "total_judge_tokens", "execution_mode"]
     )
     
     st.dataframe(

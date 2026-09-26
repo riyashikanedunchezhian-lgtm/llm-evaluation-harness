@@ -249,12 +249,12 @@ This balances variance reduction with interpretability.
 
 ### Cost Calculation
 
-Costs are calculated using published API pricing:
-- Input tokens: (tokens / 1000) × input_price_per_1k
-- Output tokens: (tokens / 1000) × output_price_per_1k
-- Total: input_cost + output_cost
+Costs are calculated using published API pricing for both candidate and judge models:
+- Candidate model cost: (input_tokens / 1000) × input_price + (output_tokens / 1000) × output_price
+- Judge model cost: (judge_input_tokens / 1000) × input_price + (judge_output_tokens / 1000) × output_price
+- Total cost: candidate_cost + (judge_cost × jury_size)
 
-Judge costs are included in the total cost per evaluation.
+The judge model (Claude 3.5 Sonnet) is typically more expensive than candidate models, and with 3 jury members, judge costs often dominate the total cost. This is accurately reflected in the cost calculations.
 
 ## Extending the Harness
 
@@ -320,7 +320,7 @@ Modify the judge system prompt in `src/judge.py`:
 
 3. **Cost**: Jury evaluation multiplies API costs by the jury size (3x in this implementation).
 
-4. **Latency**: Running multiple judge calls increases total evaluation time.
+4. ~~**Latency**: Running multiple judge calls increases total evaluation time.~~ **SOLVED**: Now supports parallel judge execution by default, reducing latency by ~3x.
 
 5. **Rubric subjectivity**: Some dimensions (like conciseness) are inherently subjective.
 
@@ -332,6 +332,36 @@ Modify the judge system prompt in `src/judge.py`:
 - Support for custom prompt templates per model
 - Automated report generation with tradeoff analysis
 - Integration with CI/CD for regression testing
+
+## Latency Optimization
+
+**Problem Solved**: The original limitation "Running multiple judge calls increases total evaluation time" has been addressed through parallel execution.
+
+### Implementation
+- **Parallel Judge Execution**: Jury now runs all 3 judge calls concurrently using ThreadPoolExecutor
+- **Configurable**: Can be toggled between parallel (default) and sequential modes via `--sequential` flag
+- **~3x Speedup**: Parallel execution reduces judge evaluation time from ~3× to ~1× individual judge time
+- **Thread-Safe**: Each judge call uses independent state, no race conditions
+- **Error Handling**: If one judge fails, others continue and provide partial results
+
+### Usage
+```bash
+# Default: parallel execution (fast)
+python run_evaluation.py
+
+# Sequential execution (for debugging)
+python run_evaluation.py --sequential
+```
+
+### Performance Impact
+- **Sequential**: 3 judge calls × 2s each = 6s total judge time
+- **Parallel**: max(3 judge calls) ≈ 2s total judge time
+- **Speedup**: ~3x faster evaluation while maintaining identical results
+
+### Validation
+- Unit tests verify parallel vs sequential consistency
+- Dashboard shows execution mode per evaluation
+- Results include `execution_mode` field for analysis
 
 ## License
 

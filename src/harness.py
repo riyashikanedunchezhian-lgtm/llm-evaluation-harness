@@ -9,7 +9,7 @@ import pandas as pd
 
 from .models import ModelClient, ModelResponse
 from .judge import Jury, PositionBiasChecker
-from .config import MODEL_CONFIGS, JUDGE_MODEL
+from .config import MODEL_CONFIGS, JUDGE_MODEL, JURY_SIZE, PARALLEL_JUDGE
 
 @dataclass
 class EvaluationResult:
@@ -29,17 +29,21 @@ class EvaluationResult:
     judge_results: Dict[str, Any]
     overall_score: float
     timestamp: str
+    judge_input_tokens: int = 0
+    judge_output_tokens: int = 0
+    execution_mode: str = "sequential"
 
 class EvaluationHarness:
     """Main harness for running LLM evaluations."""
     
-    def __init__(self, model_ids: List[str], test_set_path: str = "prompts/test_set.json"):
+    def __init__(self, model_ids: List[str], test_set_path: str = "prompts/test_set.json", parallel_judge: bool = PARALLEL_JUDGE):
         self.model_client = ModelClient()
         self.models = [MODEL_CONFIGS[mid] for mid in model_ids]
-        self.jury = Jury(self.model_client)
+        self.jury = Jury(self.model_client, parallel=parallel_judge)
         self.bias_checker = PositionBiasChecker(self.model_client)
         self.test_set = self._load_test_set(test_set_path)
         self.results: List[EvaluationResult] = []
+        self.parallel_judge = parallel_judge
     
     def _load_test_set(self, path: str) -> Dict[str, List[Dict]]:
         """Load test set from JSON file."""
@@ -52,10 +56,37 @@ class EvaluationHarness:
         output_tokens: int,
         model_config
     ) -> float:
-        """Calculate cost in USD."""
+        """Calculate cost in USD for a single model call."""
         input_cost = (input_tokens / 1000) * model_config.input_price_per_1k
         output_cost = (output_tokens / 1000) * model_config.output_price_per_1k
         return input_cost + output_cost
+    
+    def _calculate_total_cost(
+        self,
+        candidate_input_tokens: int,
+        candidate_output_tokens: int,
+        candidate_config,
+        judge_input_tokens: int,
+        judge_output_tokens: int,
+        judge_config
+    ) -> float:
+        """Calculate total cost including candidate model and all judge calls."""
+        # Candidate model cost
+        candidate_cost = self._calculate_cost(
+            candidate_input_tokens,
+            candidate_output_tokens,
+            candidate_config
+        )
+        
+        # Judge model cost (multiplied by jury size)
+        judge_cost_per_call = self._calculate_cost(
+            judge_input_tokens,
+            judge_output_tokens,
+            judge_config
+        )
+        total_judge_cost = judge_cost_per_call * JURY_SIZE
+        
+        return candidate_cost + total_judge_cost
     
     def _flatten_test_set(self) -> List[Dict]:
         """Flatten test set into list of individual test cases."""
@@ -111,19 +142,23 @@ class EvaluationHarness:
             temperature=model_config.temperature
         )
         
-        # Calculate cost
-        cost = self._calculate_cost(
-            model_response.input_tokens,
-            model_response.output_tokens,
-            model_config
-        )
-        
         # Judge the response
         judge_results = self.jury.evaluate(
             prompt=test_case["prompt"],
             response=model_response.content,
             reference_answer=test_case.get("reference_answer"),
             evaluation_criteria=test_case.get("evaluation_criteria")
+        )
+        
+        # Calculate total cost (candidate + judges)
+        judge_config = MODEL_CONFIGS[JUDGE_MODEL]
+        cost = self._calculate_total_cost(
+            candidate_input_tokens=model_response.input_tokens,
+            candidate_output_tokens=model_response.output_tokens,
+            candidate_config=model_config,
+            judge_input_tokens=judge_results["total_judge_input_tokens"],
+            judge_output_tokens=judge_results["total_judge_output_tokens"],
+            judge_config=judge_config
         )
         
         # Extract overall score
@@ -144,7 +179,10 @@ class EvaluationHarness:
             cost_usd=cost,
             judge_results=judge_results,
             overall_score=overall_score,
-            timestamp=datetime.now().isoformat()
+            timestamp=datetime.now().isoformat(),
+            judge_input_tokens=judge_results["total_judge_input_tokens"],
+            judge_output_tokens=judge_results["total_judge_output_tokens"],
+            execution_mode=judge_results.get("execution_mode", "sequential")
         )
     
     def _run_bias_checks(self):
@@ -202,8 +240,12 @@ class EvaluationHarness:
                 "input_tokens": r.input_tokens,
                 "output_tokens": r.output_tokens,
                 "total_tokens": r.input_tokens + r.output_tokens,
+                "judge_input_tokens": r.judge_input_tokens,
+                "judge_output_tokens": r.judge_output_tokens,
+                "total_judge_tokens": r.judge_input_tokens + r.judge_output_tokens,
                 "cost_usd": r.cost_usd,
-                "consensus": r.judge_results["aggregated"]["consensus"]
+                "consensus": r.judge_results["aggregated"]["consensus"],
+                "execution_mode": r.execution_mode
             })
         
         return pd.DataFrame(data)

@@ -1,8 +1,9 @@
 """Configuration for LLM evaluation harness."""
 
-import os
 from dataclasses import dataclass
 from typing import Dict
+
+__all__ = ["ModelConfig", "MODEL_CONFIGS", "JUDGE_MODEL", "RUBRIC_DIMENSIONS", "JURY_SIZE", "PARALLEL_JUDGE"]
 
 @dataclass
 class ModelConfig:
@@ -69,3 +70,4 @@ RUBRIC_DIMENSIONS = [
 
 # Jury evaluation settings
 JURY_SIZE = 3  # Number of judge calls per evaluation
+PARALLEL_JUDGE = True  # Enable parallel execution for reduced latency

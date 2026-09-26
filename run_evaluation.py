@@ -30,6 +30,11 @@ def main():
         help="Enable position bias checking"
     )
     parser.add_argument(
+        "--sequential",
+        action="store_true",
+        help="Use sequential judge execution instead of parallel (slower but more predictable)"
+    )
+    parser.add_argument(
         "--output",
         default="data/results.json",
         help="Output path for results JSON"
@@ -50,10 +55,14 @@ def main():
     else:
         print("Categories: all")
     
+    execution_mode = "sequential" if args.sequential else "parallel"
+    print(f"Judge execution mode: {execution_mode}")
+    
     # Initialize harness
     harness = EvaluationHarness(
         model_ids=args.models,
-        test_set_path="prompts/test_set.json"
+        test_set_path="prompts/test_set.json",
+        parallel_judge=not args.sequential
     )
     
     # Run evaluation
@@ -82,6 +91,13 @@ def main():
         print(f"  Average Cost: ${model_metrics['avg_cost_usd']:.4f}")
         print(f"  Total Cost: ${model_metrics['total_cost_usd']:.4f}")
         print(f"  Total Tokens: {model_metrics['total_tokens']}")
+    
+    # Show execution mode breakdown
+    if "execution_mode" in df.columns:
+        print(f"\nExecution Mode Distribution:")
+        mode_counts = df["execution_mode"].value_counts()
+        for mode, count in mode_counts.items():
+            print(f"  {mode}: {count} evaluations")
     
     print("\nBy Category:")
     for category in df["category"].unique():

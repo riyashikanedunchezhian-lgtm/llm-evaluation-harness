@@ -4,6 +4,7 @@ import json
 import random
 from typing import Dict, List, Any, Optional
 from dataclasses import dataclass
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from .models import ModelClient
 from .config import MODEL_CONFIGS, JUDGE_MODEL, RUBRIC_DIMENSIONS, JURY_SIZE
 
@@ -20,6 +21,8 @@ class JudgeVerdict:
     scores: List[JudgeScore]
     overall_score: float  # Average of all dimensions
     judge_id: int
+    input_tokens: int = 0
+    output_tokens: int = 0
 
 class Judge:
     """LLM-as-a-Judge evaluator."""
@@ -52,6 +55,11 @@ class Judge:
         )
         
         verdict = self._parse_judge_response(model_response.content, judge_id)
+        
+        # Add token usage to verdict
+        verdict.input_tokens = model_response.input_tokens
+        verdict.output_tokens = model_response.output_tokens
+        
         return verdict
     
     def _build_judge_system_prompt(self) -> str:
@@ -188,16 +196,19 @@ Be objective, fair, and provide clear justifications for each score."""
         return JudgeVerdict(
             scores=scores,
             overall_score=3.0,
-            judge_id=judge_id
+            judge_id=judge_id,
+            input_tokens=0,
+            output_tokens=0
         )
 
 class Jury:
     """Jury-style evaluation with multiple judges."""
     
-    def __init__(self, model_client: ModelClient, jury_size: int = JURY_SIZE):
+    def __init__(self, model_client: ModelClient, jury_size: int = JURY_SIZE, parallel: bool = True):
         self.model_client = model_client
         self.judge = Judge(model_client)
         self.jury_size = jury_size
+        self.parallel = parallel  # Enable parallel execution for reduced latency
     
     def evaluate(
         self,
@@ -207,7 +218,22 @@ class Jury:
         evaluation_criteria: Optional[str] = None
     ) -> Dict[str, Any]:
         """Evaluate a response using a jury of judges."""
+        if self.parallel:
+            return self._evaluate_parallel(prompt, response, reference_answer, evaluation_criteria)
+        else:
+            return self._evaluate_sequential(prompt, response, reference_answer, evaluation_criteria)
+    
+    def _evaluate_sequential(
+        self,
+        prompt: str,
+        response: str,
+        reference_answer: Optional[str],
+        evaluation_criteria: Optional[str]
+    ) -> Dict[str, Any]:
+        """Evaluate sequentially (original implementation)."""
         verdicts = []
+        total_judge_input_tokens = 0
+        total_judge_output_tokens = 0
         
         for i in range(self.jury_size):
             verdict = self.judge.evaluate(
@@ -218,13 +244,72 @@ class Jury:
                 judge_id=i
             )
             verdicts.append(verdict)
+            total_judge_input_tokens += verdict.input_tokens
+            total_judge_output_tokens += verdict.output_tokens
         
         # Aggregate verdicts
         aggregated = self._aggregate_verdicts(verdicts)
         
         return {
             "individual_verdicts": verdicts,
-            "aggregated": aggregated
+            "aggregated": aggregated,
+            "total_judge_input_tokens": total_judge_input_tokens,
+            "total_judge_output_tokens": total_judge_output_tokens,
+            "execution_mode": "sequential"
+        }
+    
+    def _evaluate_parallel(
+        self,
+        prompt: str,
+        response: str,
+        reference_answer: Optional[str],
+        evaluation_criteria: Optional[str]
+    ) -> Dict[str, Any]:
+        """Evaluate in parallel for reduced latency."""
+        verdicts = []
+        total_judge_input_tokens = 0
+        total_judge_output_tokens = 0
+        
+        # Run judge calls in parallel
+        with ThreadPoolExecutor(max_workers=self.jury_size) as executor:
+            # Submit all judge calls
+            future_to_judge_id = {
+                executor.submit(
+                    self.judge.evaluate,
+                    prompt=prompt,
+                    response=response,
+                    reference_answer=reference_answer,
+                    evaluation_criteria=evaluation_criteria,
+                    judge_id=i
+                ): i for i in range(self.jury_size)
+            }
+            
+            # Collect results as they complete
+            for future in as_completed(future_to_judge_id):
+                judge_id = future_to_judge_id[future]
+                try:
+                    verdict = future.result()
+                    verdicts.append(verdict)
+                    total_judge_input_tokens += verdict.input_tokens
+                    total_judge_output_tokens += verdict.output_tokens
+                except Exception as e:
+                    print(f"Judge {judge_id} generated an exception: {e}")
+                    # Create fallback verdict on error
+                    fallback = self.judge._create_fallback_verdict("", judge_id, str(e))
+                    verdicts.append(fallback)
+        
+        # Sort verdicts by judge_id to maintain consistent order
+        verdicts.sort(key=lambda v: v.judge_id)
+        
+        # Aggregate verdicts
+        aggregated = self._aggregate_verdicts(verdicts)
+        
+        return {
+            "individual_verdicts": verdicts,
+            "aggregated": aggregated,
+            "total_judge_input_tokens": total_judge_input_tokens,
+            "total_judge_output_tokens": total_judge_output_tokens,
+            "execution_mode": "parallel"
         }
     
     def _aggregate_verdicts(self, verdicts: List[JudgeVerdict]) -> Dict[str, Any]:
