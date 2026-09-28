@@ -36,7 +36,7 @@ class EvaluationResult:
 class EvaluationHarness:
     """Main harness for running LLM evaluations."""
     
-    def __init__(self, model_ids: List[str], test_set_path: str = "prompts/test_set.json", parallel_judge: bool = PARALLEL_JUDGE):
+    def __init__(self, model_ids: List[str], test_set_path: str = "prompts/test_set.json", parallel_judge: bool = PARALLEL_JUDGE, progress_callback=None):
         self.model_client = ModelClient()
         self.models = [MODEL_CONFIGS[mid] for mid in model_ids]
         self.jury = Jury(self.model_client, parallel=parallel_judge)
@@ -44,6 +44,7 @@ class EvaluationHarness:
         self.test_set = self._load_test_set(test_set_path)
         self.results: List[EvaluationResult] = []
         self.parallel_judge = parallel_judge
+        self.progress_callback = progress_callback
     
     def _load_test_set(self, path: str) -> Dict[str, List[Dict]]:
         """Load test set from JSON file."""
@@ -116,6 +117,18 @@ class EvaluationHarness:
         for test_case in test_cases:
             for model_config in self.models:
                 current += 1
+                progress_info = {
+                    "current": current,
+                    "total": total_tests,
+                    "test_id": test_case['id'],
+                    "model": model_config.name,
+                    "category": test_case['category'],
+                    "progress_percent": (current / total_tests) * 100
+                }
+                
+                if self.progress_callback:
+                    self.progress_callback(progress_info)
+                
                 print(f"[{current}/{total_tests}] Evaluating {test_case['id']} with {model_config.name}...")
                 
                 result = self._evaluate_single(test_case, model_config)
@@ -123,7 +136,12 @@ class EvaluationHarness:
         
         if enable_bias_check:
             print("\nRunning position bias checks...")
+            if self.progress_callback:
+                self.progress_callback({"status": "bias_check", "message": "Running position bias checks..."})
             self._run_bias_checks()
+        
+        if self.progress_callback:
+            self.progress_callback({"status": "complete", "message": "Evaluation complete!"})
         
         return self.results
     
@@ -139,7 +157,8 @@ class EvaluationHarness:
             provider=model_config.provider,
             prompt=test_case["prompt"],
             max_tokens=model_config.max_tokens,
-            temperature=model_config.temperature
+            temperature=model_config.temperature,
+            api_base=model_config.api_base
         )
         
         # Judge the response
@@ -196,13 +215,15 @@ class EvaluationHarness:
                 response_a = self.model_client.call_model(
                     model_id=self.models[0].model_id,
                     provider=self.models[0].provider,
-                    prompt=test_case["prompt"]
+                    prompt=test_case["prompt"],
+                    api_base=self.models[0].api_base
                 ).content
                 
                 response_b = self.model_client.call_model(
                     model_id=self.models[1].model_id,
                     provider=self.models[1].provider,
-                    prompt=test_case["prompt"]
+                    prompt=test_case["prompt"],
+                    api_base=self.models[1].api_base
                 ).content
                 
                 bias_result = self.bias_checker.check_position_bias(

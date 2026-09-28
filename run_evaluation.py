@@ -10,6 +10,19 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 from src.harness import EvaluationHarness
 from src.config import MODEL_CONFIGS
 
+def progress_callback(progress_info):
+    """Progress callback for real-time updates."""
+    if "status" in progress_info:
+        if progress_info["status"] == "bias_check":
+            print(f"\n{progress_info['message']}")
+        elif progress_info["status"] == "complete":
+            print(f"\n{progress_info['message']}")
+    else:
+        print(f"[{progress_info['current']}/{progress_info['total']}] "
+              f"({progress_info['progress_percent']:.1f}%) "
+              f"Evaluating {progress_info['test_id']} with {progress_info['model']} "
+              f"[{progress_info['category']}]")
+
 def main():
     parser = argparse.ArgumentParser(description="Run LLM evaluation harness")
     parser.add_argument(
@@ -39,6 +52,14 @@ def main():
         default="data/results.json",
         help="Output path for results JSON"
     )
+    parser.add_argument(
+        "--export-csv",
+        help="Also export results to CSV file"
+    )
+    parser.add_argument(
+        "--export-excel",
+        help="Also export results to Excel file"
+    )
     
     args = parser.parse_args()
     
@@ -58,11 +79,12 @@ def main():
     execution_mode = "sequential" if args.sequential else "parallel"
     print(f"Judge execution mode: {execution_mode}")
     
-    # Initialize harness
+    # Initialize harness with progress callback
     harness = EvaluationHarness(
         model_ids=args.models,
         test_set_path="prompts/test_set.json",
-        parallel_judge=not args.sequential
+        parallel_judge=not args.sequential,
+        progress_callback=progress_callback
     )
     
     # Run evaluation
@@ -73,6 +95,22 @@ def main():
     
     # Save results
     harness.save_results(args.output)
+    
+    # Export to CSV if requested
+    if args.export_csv:
+        df = harness.get_summary_dataframe()
+        df.to_csv(args.export_csv, index=False)
+        print(f"CSV export saved to: {args.export_csv}")
+    
+    # Export to Excel if requested
+    if args.export_excel:
+        try:
+            df = harness.get_summary_dataframe()
+            df.to_excel(args.export_excel, index=False, engine='openpyxl')
+            print(f"Excel export saved to: {args.export_excel}")
+        except ImportError:
+            print("Warning: openpyxl not installed. Excel export skipped.")
+            print("Install with: pip install openpyxl")
     
     # Print summary
     print("\n" + "="*60)
@@ -110,6 +148,10 @@ def main():
     print("\n" + "="*60)
     print(f"Total evaluations: {len(results)}")
     print(f"Results saved to: {args.output}")
+    if args.export_csv:
+        print(f"CSV export: {args.export_csv}")
+    if args.export_excel:
+        print(f"Excel export: {args.export_excel}")
     print("="*60)
 
 if __name__ == "__main__":

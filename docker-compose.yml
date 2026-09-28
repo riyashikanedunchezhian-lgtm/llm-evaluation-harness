@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  llm-harness:
+    build: .
+    container_name: llm-evaluation-harness
+    ports:
+      - "8501:8501"
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - COHERE_API_KEY=${COHERE_API_KEY}
+      - LOCAL_API_BASE=${LOCAL_API_BASE:-http://host.docker.internal:8000/v1}
+    volumes:
+      - ./data:/app/data
+      - ./results:/app/results
+      - ./prompts:/app/prompts
+    restart: unless-stopped
+    networks:
+      - llm-network
+
+networks:
+  llm-network:
+    driver: bridge

@@ -1,0 +1,82 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Data and Results
+data/
+results/
+*.json
+*.csv
+*.xlsx
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Documentation
+README.md
+DEPLOYMENT.md
+PROJECT_SUMMARY.md
+QUICKSTART.md
+COST_FIX.md
+LATENCY_SOLUTION.md
+AGENTS.md
+
+# Tests
+.pytest_cache/
+.coverage
+htmlcov/
+tests/
+
+# Logs
+*.log
+
+# Docker
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Startup scripts
+start.sh
+start.bat
+
+# Misc
+.editorconfig
