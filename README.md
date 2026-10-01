@@ -4,6 +4,20 @@ A comprehensive, production-ready evaluation system for LLM outputs using LLM-as
 
 ## 🌟 Features
 
+### Faithfulness Evaluation Extension
+- **Research-Grade Methodology**: Rigorous faithfulness evaluation for long-document summarization
+- **Atomic Claim Decomposition**: LLM-based extraction of verifiable factual claims
+- **Retrieval-Augmented Verification**: Dense passage retrieval with sentence-transformers
+- **Jury Classification**: Supported/Contradicted/Unverifiable with 3-jury aggregation
+- **Inter-Judge Metrics**: Fleiss' kappa and percent agreement for jury consistency
+- **Human Validation**: Cohen's kappa calculation with disagreement categorization
+- **Position Bias Detection**: Claim-then-source vs source-then-claim bias testing
+- **Comparative Analysis**: Faithfulness vs fluency correlation analysis
+
+See [FAITHFULNESS_README.md](FAITHFULNESS_README.md) for complete documentation of the faithfulness evaluation system.
+
+### Core Evaluation Capabilities
+
 ### Core Evaluation Capabilities
 - **LLM-as-a-Judge**: Multi-dimensional scoring with detailed justifications
 - **Jury-style Evaluation**: 3-judge aggregation with variance tracking and consensus detection
@@ -311,6 +325,7 @@ pytest tests/test_position_bias.py -v
 - [DEPLOYMENT.md](DEPLOYMENT.md) - Comprehensive deployment guide
 - [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md) - Project architecture and methodology
 - [QUICKSTART.md](QUICKSTART.md) - Quick start guide
+- [FAITHFULNESS_README.md](FAITHFULNESS_README.md) - Faithfulness evaluation for long-document summarization (research-grade methodology)
 - [API Documentation](http://localhost:8000/docs) - Interactive API docs (when running)
 
 ## 🤝 Contributing
