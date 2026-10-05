@@ -92,7 +92,7 @@ class HumanValidator:
         return self.annotations
     
     def calculate_agreement(self, human_annotations: List[HumanAnnotation],
-                          jury_verdicts: Dict[str, JuryVerdict]) -> AgreementResult:
+                          jury_verdicts: Dict) -> AgreementResult:
         """Calculate Cohen's kappa between human and automated annotations."""
         
         # Build paired annotations
@@ -100,12 +100,22 @@ class HumanValidator:
         for annotation in human_annotations:
             verdict = jury_verdicts.get(annotation.claim_id)
             if verdict:
+                # Handle both dict and JuryVerdict object
+                if isinstance(verdict, dict):
+                    auto_label = verdict.get("majority_label", "Unknown")
+                    auto_justification = ""
+                    if verdict.get("individual_verdicts"):
+                        auto_justification = verdict["individual_verdicts"][0].get("justification", "")
+                else:
+                    auto_label = verdict.majority_label
+                    auto_justification = verdict.individual_verdicts[0].justification if verdict.individual_verdicts else ""
+                
                 paired.append({
                     "claim_id": annotation.claim_id,
                     "human_label": annotation.human_label,
-                    "auto_label": verdict.majority_label,
+                    "auto_label": auto_label,
                     "human_justification": annotation.human_justification,
-                    "auto_justification": verdict.individual_verdicts[0].justification if verdict.individual_verdicts else ""
+                    "auto_justification": auto_justification
                 })
         
         if not paired:

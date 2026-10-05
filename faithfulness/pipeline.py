@@ -62,8 +62,67 @@ class FaithfulnessPipeline:
         self.documents: List[Document] = []
         self.summaries: Dict[str, Dict[str, str]] = {}  # {doc_id: {model_id: summary}}
         self.claims: Dict[str, List[Claim]] = {}  # {doc_id_model: [claims]}
-        self.jury_verdicts: Dict[str, Dict[str, any]] = {}  # {claim_id: verdict}
+        self.jury_verdicts: Dict[str, any] = {}  # {claim_id: verdict}
         self.bias_results: Dict[str, any] = {}
+    
+    def load_existing_results(self):
+        """Load existing results from previous runs."""
+        import os
+        import json
+
+        # Load documents
+        doc_path = os.path.join(self.config.output_dir, "documents.json")
+        if os.path.exists(doc_path):
+            with open(doc_path, 'r') as f:
+                docs_data = json.load(f)
+            self.documents = [
+                Document(
+                    doc_id=doc["doc_id"],
+                    title=doc["title"],
+                    text=doc["text"],
+                    summary=doc.get("summary"),
+                    word_count=doc["word_count"]
+                )
+                for doc in docs_data
+            ]
+            print(f"Loaded {len(self.documents)} existing documents")
+
+        # Load jury verdicts
+        verdict_path = os.path.join(self.config.output_dir, "jury_verdicts.json")
+        if os.path.exists(verdict_path):
+            with open(verdict_path, 'r') as f:
+                verdicts_data = json.load(f)
+
+            from .jury_aggregation import JuryVerdict
+            for claim_id, verdict_data in verdicts_data.items():
+                self.jury_verdicts[claim_id] = JuryVerdict(
+                    majority_label=verdict_data["majority_label"],
+                    label_distribution=verdict_data["label_distribution"],
+                    confidence=verdict_data["confidence"],
+                    individual_verdicts=[],  # Not stored in simplified format
+                    agreement_score=verdict_data.get("agreement_score", 1.0),
+                    jury_size=verdict_data["jury_size"]
+                )
+            print(f"Loaded {len(self.jury_verdicts)} existing jury verdicts")
+
+        # Load claims if needed
+        if not self.claims:
+            claims_path = os.path.join(self.config.output_dir, "claims.json")
+            if os.path.exists(claims_path):
+                with open(claims_path, 'r') as f:
+                    claims_data = json.load(f)
+
+                # Convert back to Claim objects
+                for key, claims_list in claims_data.items():
+                    self.claims[key] = [
+                        Claim(
+                            claim_id=claim["claim_id"],
+                            claim_text=claim["claim_text"],
+                            source_sentence=claim.get("source_sentence")
+                        )
+                        for claim in claims_list
+                    ]
+                print(f"Loaded {len(self.claims)} existing claim sets")
     
     def run_full_pipeline(self, generate_summaries: bool = True,
                          run_bias_check: bool = False) -> Dict:
@@ -250,16 +309,34 @@ class FaithfulnessPipeline:
         with open(os.path.join(self.config.output_dir, "pipeline_results.json"), 'w') as f:
             json.dump(results, f, indent=2)
         
+        # Save claims for human validation
+        claims_serializable = {}
+        for key, claims in self.claims.items():
+            claims_serializable[key] = [
+                {
+                    "claim_id": claim.claim_id,
+                    "claim_text": claim.claim_text,
+                    "source_sentence": claim.source_sentence
+                }
+                for claim in claims
+            ]
+        
+        with open(os.path.join(self.config.output_dir, "claims.json"), 'w') as f:
+            json.dump(claims_serializable, f, indent=2)
+        
         # Save jury verdicts
         jury_verdicts_serializable = {}
         for claim_id, verdict in self.jury_verdicts.items():
-            jury_verdicts_serializable[claim_id] = {
-                "majority_label": verdict.majority_label,
-                "label_distribution": verdict.label_distribution,
-                "confidence": verdict.confidence,
-                "agreement_score": verdict.agreement_score,
-                "jury_size": verdict.jury_size
-            }
+            if isinstance(verdict, dict):
+                jury_verdicts_serializable[claim_id] = verdict
+            else:
+                jury_verdicts_serializable[claim_id] = {
+                    "majority_label": verdict.majority_label,
+                    "label_distribution": verdict.label_distribution,
+                    "confidence": verdict.confidence,
+                    "agreement_score": verdict.agreement_score,
+                    "jury_size": verdict.jury_size
+                }
         
         with open(os.path.join(self.config.output_dir, "jury_verdicts.json"), 'w') as f:
             json.dump(jury_verdicts_serializable, f, indent=2)
@@ -280,26 +357,58 @@ class FaithfulnessPipeline:
         print(f"  Results saved to {self.config.output_dir}")
     
     def run_human_validation(self, annotation_template_path: str,
-                          annotations_path: str) -> Dict:
+                          annotations_path: str = None) -> Dict:
         """Run human validation pipeline."""
         print("\n[HUMAN VALIDATION]")
+        
+        # Load existing results if available
+        if not self.documents or not self.jury_verdicts:
+            self.load_existing_results()
         
         # Create annotation template
         all_claims = []
         for claims in self.claims.values():
             all_claims.extend(claims)
         
+        if not all_claims:
+            print("No claims found. Please run the evaluation first to generate claims.")
+            return {"template_created": False, "error": "no_claims"}
+        
         print(f"Creating annotation template with {len(all_claims)} claims...")
+        
+        # Create simplified verdict dict for template generation
+        simplified_verdicts = {}
+        for claim_id, verdict in self.jury_verdicts.items():
+            if isinstance(verdict, dict):
+                simplified_verdicts[claim_id] = verdict
+            else:
+                # It's a JuryVerdict object
+                simplified_verdicts[claim_id] = {
+                    "majority_label": verdict.majority_label,
+                    "confidence": verdict.confidence,
+                    "individual_verdicts": [
+                        {
+                            "label": v.label,
+                            "justification": v.justification
+                        } for v in verdict.individual_verdicts
+                    ] if verdict.individual_verdicts else []
+                }
+        
         self.human_validator.create_annotation_template(
             all_claims,
-            self.jury_verdicts,
+            simplified_verdicts,
             annotation_template_path
         )
         
-        print(f"\nPlease annotate the claims in: {annotation_template_path}")
-        print("Then run: python -m faithfulness.pipeline --validate-annotations {annotations_path}")
+        print(f"\nAnnotation template created: {annotation_template_path}")
+        print(f"Total claims to annotate: {len(all_claims)}")
         
-        return {"template_created": True, "template_path": annotation_template_path}
+        if annotations_path:
+            print(f"\nProcessing annotations from: {annotations_path}")
+            result = self.process_human_annotations(annotations_path, annotation_template_path.replace("template", "report"))
+            return result
+        
+        return {"template_created": True, "template_path": annotation_template_path, "total_claims": len(all_claims)}
     
     def process_human_annotations(self, annotations_path: str, 
                                  report_path: str) -> Dict:

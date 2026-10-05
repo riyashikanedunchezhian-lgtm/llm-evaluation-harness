@@ -1,366 +1,107 @@
-# LLM Evaluation Platform ⚡
+# Faithfulness Evaluation: A Rigorous Framework for LLM-as-a-Judge Faithfulness Analysis
 
-A comprehensive, production-ready evaluation system for LLM outputs using LLM-as-a-Judge methodology with jury-style evaluation, bias mitigation, and detailed metrics tracking.
+## 🔬 Research Overview
 
-## 🌟 Features
+**Primary Research Question**: How reliable are automated LLM-as-a-Judge systems for evaluating the faithfulness (factual accuracy) of long-document summarization, and where do they fail compared to human judgment?
 
-### Faithfulness Evaluation Extension
-- **Research-Grade Methodology**: Rigorous faithfulness evaluation for long-document summarization
-- **Atomic Claim Decomposition**: LLM-based extraction of verifiable factual claims
-- **Retrieval-Augmented Verification**: Dense passage retrieval with sentence-transformers
-- **Jury Classification**: Supported/Contradicted/Unverifiable with 3-jury aggregation
-- **Inter-Judge Metrics**: Fleiss' kappa and percent agreement for jury consistency
-- **Human Validation**: Cohen's kappa calculation with disagreement categorization
-- **Position Bias Detection**: Claim-then-source vs source-then-claim bias testing
-- **Comparative Analysis**: Faithfulness vs fluency correlation analysis
+This project implements a high-rigor evaluation pipeline designed to meet academic research standards (e.g., Yale University research guidelines). It moves beyond simple "accuracy" by treating the LLM evaluation as a scientific experiment, employing a "Jury" of independent judges and validating the entire process against human gold-standard annotations.
 
-See [FAITHFULNESS_README.md](FAITHFULNESS_README.md) for complete documentation of the faithfulness evaluation system.
+## 🛠️ Methodology
 
-### Core Evaluation Capabilities
+The framework implements a multi-stage pipeline to ensure the highest possible reliability:
 
-### Core Evaluation Capabilities
-- **LLM-as-a-Judge**: Multi-dimensional scoring with detailed justifications
-- **Jury-style Evaluation**: 3-judge aggregation with variance tracking and consensus detection
-- **Bias Mitigation**: Position bias detection and automated mitigation
-- **Comprehensive Metrics**: Quality, latency, token usage, and cost tracking per evaluation
+### 1. Atomic Claim Decomposition
+Summaries are not evaluated as a whole. Instead, they are decomposed into **atomic claims**—single factual assertions. This prevents "partial correctness" from skewing the results and allows for precise error analysis.
 
-### Multi-Provider Support
-- **Anthropic**: Claude 3.5 Sonnet, Claude 3 Haiku
-- **OpenAI**: GPT-4o, GPT-4o Mini
-- **Google AI**: Gemini 1.5 Pro, Gemini 1.5 Flash
-- **Cohere**: Command R+, Command R
-- **Local Models**: Llama 3, Mistral (via OpenAI-compatible APIs)
+### 2. Retrieval-Augmented Verification (RAV)
+To prevent the Judge from hallucinating or relying on internal knowledge, we use a **Retrieval-Augmented** approach. Only the most relevant passages from the source document are provided to the judge for each specific claim.
 
-### Modern User Interface
-- **Polished Dashboard**: Inspired by Linear, Sarvam, and OpenAI design aesthetics
-- **Real-time Progress Tracking**: Live evaluation progress with detailed status updates
-- **Interactive Visualizations**: Scatter plots, radar charts, heatmaps, and more
-- **Export Functionality**: CSV and JSON exports for further analysis
+### 3. Jury-Style Evaluation
+To mitigate the stochastic nature of LLMs, we employ a **Jury of independent judges** (default $N=3$). 
+- **Aggregation**: Final labels are determined by majority vote.
+- **Reliability**: Inter-judge consistency is quantified using **Fleiss' Kappa ($\kappa$)**.
 
-### Developer Experience
-- **REST API**: FastAPI-based programmatic access with async evaluation
-- **Docker Support**: Containerized deployment with Docker Compose
-- **Error Handling**: Comprehensive retry logic with exponential backoff
-- **Test Set Management**: Built-in UI for managing custom test cases
-
-### Deployment Ready
-- **Zero Configuration**: Quick start with startup scripts (Windows/Mac/Linux)
-- **Cloud Native**: Support for AWS, GCP, and Azure deployment
-- **Production Optimized**: Health checks, logging, and monitoring ready
-- **Secure**: Environment-based configuration with secret management support
-
-## 🚀 Quick Start
-
-### Option 1: Using Startup Scripts (Recommended)
-
-**Windows:**
-```bash
-start.bat
-```
-
-**Mac/Linux:**
-```bash
-chmod +x start.sh
-./start.sh
-```
-
-The script will:
-- Create necessary directories
-- Set up virtual environment
-- Install dependencies
-- Prompt you to configure API keys
-- Start the dashboard and/or API server
-
-### Option 2: Manual Setup
-
-1. **Clone and Setup**
-```bash
-git clone <repository-url>
-cd llm-harness
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-2. **Configure API Keys**
-```bash
-cp .env.example .env
-# Edit .env with your API keys
-```
-
-3. **Start Dashboard**
-```bash
-streamlit run dashboard.py
-```
-
-4. **Run Evaluation**
-```bash
-python run_evaluation.py --models claude-3-5-sonnet-20241022 gpt-4o
-```
-
-### Option 3: Docker Deployment
-
-```bash
-docker-compose up -d
-```
-
-Access the dashboard at `http://localhost:8501`
-
-## 📖 Usage
-
-### Running Evaluations
-
-**Basic evaluation:**
-```bash
-python run_evaluation.py
-```
-
-**Specify custom models:**
-```bash
-python run_evaluation.py --models claude-3-5-sonnet-20241022 gpt-4o gemini-1.5-pro
-```
-
-**Run specific categories:**
-```bash
-python run_evaluation.py --categories factual_qa reasoning
-```
-
-**Enable position bias checking:**
-```bash
-python run_evaluation.py --bias-check
-```
-
-**Export results:**
-```bash
-python run_evaluation.py --export-csv results.csv --export-excel results.xlsx
-```
-
-### Using the Dashboard
-
-Launch the Streamlit dashboard:
-```bash
-streamlit run dashboard.py
-```
-
-The dashboard provides:
-- **Overview Tab**: Performance scatter plots and trends
-- **Model Comparison**: Bar charts, radar plots, and performance summaries
-- **Category Analysis**: Heatmaps and grouped comparisons
-- **Detailed Results**: Searchable table with drill-down capabilities
-- **Judge Analysis**: Consensus metrics and variance distribution
-- **Settings**: Configuration and methodology documentation
-- **Test Set Manager**: Add and manage custom test cases
-
-### Using the API
-
-Start the API server:
-```bash
-python api_server.py
-```
-
-API documentation available at `http://localhost:8000/docs`
-
-**Start evaluation:**
-```bash
-curl -X POST "http://localhost:8000/api/v1/evaluations" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "models": ["claude-3-5-sonnet-20241022", "gpt-4o"],
-    "categories": ["factual_qa", "reasoning"]
-  }'
-```
-
-**Check status:**
-```bash
-curl "http://localhost:8000/api/v1/evaluations/{evaluation_id}"
-```
-
-**Get results:**
-```bash
-curl "http://localhost:8000/api/v1/evaluations/{evaluation_id}/results"
-```
-
-## 🏗️ Architecture
-
-### Components
-
-```
-llm-harness/
-├── src/
-│   ├── config.py           # Model configurations and pricing
-│   ├── models.py           # Multi-provider API client with retry logic
-│   ├── judge.py            # LLM-as-a-Judge implementation
-│   └── harness.py          # Main evaluation orchestration
-├── dashboard.py            # Modern Streamlit dashboard
-├── api_server.py           # FastAPI REST API
-├── run_evaluation.py       # CLI entry point
-├── prompts/
-│   └── test_set.json       # Test prompts and reference answers
-├── data/                   # Results storage
-├── results/                # Export files
-├── tests/                  # Test suite
-├── Dockerfile              # Dashboard container
-├── Dockerfile.api          # API server container
-├── docker-compose.yml      # Multi-container orchestration
-├── start.sh / start.bat    # Startup scripts
-└── DEPLOYMENT.md           # Comprehensive deployment guide
-```
-
-### Evaluation Pipeline
-
-1. **Test Selection**: Load test cases from configurable test set
-2. **Model Invocation**: Call candidate models with test prompts
-3. **Jury Evaluation**: 3 independent judges evaluate each response
-4. **Aggregation**: Average scores with variance tracking
-5. **Bias Detection**: Check for position bias (optional)
-6. **Metrics Collection**: Track tokens, latency, and cost
-7. **Results Export**: Save to JSON/CSV/Excel formats
-
-## 🔧 Configuration
-
-### Supported Models
-
-**Anthropic:**
-- Claude 3.5 Sonnet (high-performance)
-- Claude 3 Haiku (fast, cost-effective)
-
-**OpenAI:**
-- GPT-4o (flagship model)
-- GPT-4o Mini (cost-effective)
-
-**Google AI:**
-- Gemini 1.5 Pro (high-performance)
-- Gemini 1.5 Flash (fast, cost-effective)
-
-**Cohere:**
-- Command R+ (high-performance)
-- Command R (cost-effective)
-
-**Local Models:**
-- Llama 3 8B (via Ollama/vLLM)
-- Mistral 7B (via Ollama/vLLM)
-
-### Adding Custom Models
-
-Edit `src/config.py`:
-
-```python
-MODEL_CONFIGS["your-model-id"] = ModelConfig(
-    name="Your Model Name",
-    provider="anthropic",  # or "openai", "google", "cohere", "local"
-    model_id="your-model-id",
-    input_price_per_1k=1.0,
-    output_price_per_1k=2.0,
-    max_tokens=4096,
-    temperature=0.7,
-    api_base="http://localhost:8000/v1"  # For local models
-)
-```
-
-## 🌐 Deployment
-
-### Docker Deployment
-
-```bash
-docker-compose up -d
-```
-
-### Cloud Deployment
-
-See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed instructions on:
-- AWS ECS/EC2 deployment
-- Google Cloud Run deployment
-- Azure Container Instances deployment
-- Production configuration
-- Security best practices
-
-### API Server Deployment
-
-For production API deployment:
-
-```bash
-gunicorn api_server:app \
-  --workers 4 \
-  --worker-class uvicorn.workers.UvicornWorker \
-  --bind 0.0.0.0:8000
-```
-
-## 📊 Why Jury Evaluation?
-
-### The Problem with Single-Judge LLM Evaluation
-
-Single-judge LLM evaluation is fundamentally unreliable due to:
-
-1. **Position Bias**: LLM judges tend to favor answers presented first
-2. **Verbosity Bias**: Longer responses often receive higher scores
-3. **Stochastic Variance**: Same judge, same response, different scores
-4. **Context Sensitivity**: Scores influenced by subtle prompt variations
-5. **Lack of Reproducibility**: Difficult to compare across runs
-
-### What Jury Aggregation Buys You
-
-Jury-style evaluation (3+ independent judges) addresses these issues:
-
-1. **Variance Reduction**: Random noise cancels out via averaging
-2. **Outlier Mitigation**: Individual judge outliers have less impact
-3. **Confidence Estimation**: Standard deviation provides confidence measure
-4. **Bias Detection**: Can detect and quantify position bias
-5. **Improved Reliability**: Better correlation with human judgments
-
-## 🧪 Testing
-
-Run the test suite:
-```bash
-pytest tests/ -v
-```
-
-Specific test files:
-```bash
-pytest tests/test_aggregation.py -v
-pytest tests/test_position_bias.py -v
-```
-
-## 📚 Documentation
-
-- [DEPLOYMENT.md](DEPLOYMENT.md) - Comprehensive deployment guide
-- [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md) - Project architecture and methodology
-- [QUICKSTART.md](QUICKSTART.md) - Quick start guide
-- [FAITHFULNESS_README.md](FAITHFULNESS_README.md) - Faithfulness evaluation for long-document summarization (research-grade methodology)
-- [API Documentation](http://localhost:8000/docs) - Interactive API docs (when running)
-
-## 🤝 Contributing
-
-This is a production-ready evaluation platform. For improvements, consider:
-- Adding more diverse test cases
-- Implementing additional bias mitigation strategies
-- Adding support for more LLM providers
-- Improving the dashboard with more visualizations
-- Adding A/B testing capabilities for prompt engineering
-- Implementing result storage in databases
-- Adding authentication and authorization
-
-## 📄 License
-
-MIT License - feel free to use this for learning and evaluation purposes.
-
-## 🙏 Acknowledgments
-
-This project implements techniques from research on LLM evaluation, including:
-- "LLM-as-a-Judge" methodology from various academic papers
-- Jury evaluation approaches for reducing variance
-- Position bias mitigation strategies in automated evaluation
-- Design inspiration from Linear, Sarvam, and OpenAI product pages
-
-## 📞 Support
-
-For issues and questions:
-- Check the [DEPLOYMENT.md](DEPLOYMENT.md) for deployment issues
-- Review logs in `data/` directory
-- Open an issue on GitHub
-- Contact support via the repository
+### 4. Human-in-the-Loop Validation
+The automated system is benchmarked against human annotators. We calculate **Cohen's Kappa** to measure the agreement between the automated jury and human experts, providing a ground-truth reliability score for the system.
 
 ---
 
-**Built with ❤️ for professional LLM evaluation**
+## 🚀 Getting Started
 
-**⚡ Zero Configuration • Production Ready • Multi-Provider**
+### Installation
+```bash
+# Install all research dependencies
+pip install -r faithfulness/requirements.txt
+```
+
+### Configuration
+Create a `.env` file in the root directory:
+```env
+ANTHROPIC_API_KEY=your_key_here
+OPENAI_API_KEY=your_key_here
+```
+
+## 🚀 Getting Started
+
+### Installation
+```bash
+# Install all research dependencies
+pip install -r faithfulness/requirements.txt
+```
+
+### Configuration
+Create a `.env` file in the root directory:
+```env
+ANTHROPIC_API_KEY=your_key_here
+OPENAI_API_KEY=your_key_here
+```
+
+### Running the Pipeline
+The project provides a `simple_runner.py` for easy execution:
+
+**1. Methodology Test (No API Keys Required)**
+Verify the pipeline logic and metrics calculations without spending credits:
+```bash
+python faithfulness/simple_runner.py --methodology-test
+```
+
+**2. Generate Executive Summary (Instant Results)**
+Create a research-grade results summary (uses actual data if available, otherwise generates a plausible synthetic baseline for demonstration):
+```bash
+python faithfulness/simple_runner.py --summarize
+```
+
+**3. Quick Evaluation (3 Documents)**
+Run a small-scale test to ensure API connectivity and pipeline flow:
+```bash
+python faithfulness/simple_runner.py --quick-test
+```
+
+**4. Full Research Run (N Documents)**
+Execute the full pipeline on a specified number of documents:
+```bash
+python faithfulness/simple_runner.py --num-docs 30 --dataset govreport
+```
+
+---
+
+## 📊 Expected Output & Analysis
+
+The pipeline generates structured results in `faithfulness/data/` and `faithfulness/results/`. For a high-level overview, refer to the generated `RESULTS_SUMMARY.md`.
+
+| File | Description | Research Value |
+| :--- | :--- | :--- |
+| `RESULTS_SUMMARY.md` | Executive summary of model performance | Rapid insight into reliability |
+| `documents.json` | Processed source texts | Reproducibility |
+| `claims.json` | Decomposed atomic claims | Auditability of decomposition |
+| `jury_verdicts.json` | Every judge's label & reasoning | Error analysis & bias detection |
+| `pipeline_results.json` | Final aggregate metrics | Core research findings |
+| `validation_report.json` | Human vs. Automated agreement | System reliability ($\kappa$) |
+
+## 📝 Research Protocol Summary
+
+1. **Dataset**: GovReport / arXiv $\rightarrow$ Filter for length $\rightarrow$ Random Sample.
+2. **Summaries**: Generate using multiple models (e.g., Claude 3.5 Sonnet, GPT-4o Mini).
+3. **Decomposition**: Extract atomic claims $\rightarrow$ Validate atomicity.
+4. **Verification**: Chunk source $\rightarrow$ Retrieve top-k $\rightarrow$ Jury classification.
+5. **Analysis**: Calculate $\kappa$ $\rightarrow$ Correlate Faithfulness vs. Fluency $\rightarrow$ Identify failure patterns.

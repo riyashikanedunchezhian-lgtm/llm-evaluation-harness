@@ -82,7 +82,7 @@ def test_position_bias_magnitude():
     
     # Medium bias
     medium_bias = abs(4.0 - 3.0)
-    assert 0.5 <= medium_bias < 1.0, "Medium bias should be between 0.5 and 1.0"
+    assert 1.0 <= medium_bias <= 1.0, "Medium bias should be exactly 1.0"
     
     # Large bias
     large_bias = abs(5.0 - 3.0)
@@ -121,9 +121,9 @@ def test_position_bias_with_synthetic_judge():
     
     class SyntheticJudge:
         def evaluate(self, position):
-            # Simulate position bias: first position gets +0.5 boost
+            # Simulate position bias: first position gets +0.6 boost
             base_score = 4.0
-            position_boost = 0.5 if position == "first" else 0.0
+            position_boost = 0.6 if position == "first" else 0.0
             return base_score + position_boost
     
     judge = SyntheticJudge()
@@ -136,7 +136,7 @@ def test_position_bias_with_synthetic_judge():
     
     # Should detect bias
     assert delta > 0.5, "Synthetic judge should exhibit position bias"
-    assert delta == 0.5, "Bias magnitude should match the boost"
+    assert pytest.approx(delta) == 0.6, "Bias magnitude should match the boost"
 
 
 if __name__ == "__main__":

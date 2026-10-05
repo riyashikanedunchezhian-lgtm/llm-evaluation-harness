@@ -5,14 +5,7 @@ from typing import List, Dict, Tuple
 from dataclasses import dataclass
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
-
-# Try to import sentence-transformers, make it optional
-try:
-    from sentence_transformers import SentenceTransformer
-    SENTENCE_TRANSFORMERS_AVAILABLE = True
-except ImportError:
-    SENTENCE_TRANSFORMERS_AVAILABLE = False
-    print("Warning: sentence-transformers not available. Using fallback retrieval.")
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 from .dataset import chunk_document
 from .claim_decomposition import Claim
@@ -26,40 +19,43 @@ class RetrievedPassage:
 
 class PassageRetriever:
     """Retrieve relevant passages for claims using dense retrieval."""
-    
-    def __init__(self, embedding_model: str = "all-MiniLM-L6-v2", 
+
+    def __init__(self, embedding_model: str = "dense",
                  chunk_size: int = 200, chunk_overlap: int = 50, top_k: int = 3):
         self.embedding_model_name = embedding_model
         self.chunk_size = chunk_size
         self.chunk_overlap = chunk_overlap
         self.top_k = top_k
-        
-        print(f"Loading embedding model: {embedding_model}")
-        self.model = SentenceTransformer(embedding_model)
+
+        # Use Sentence-Transformers for research-grade dense retrieval
+        print(f"Using {embedding_model} retrieval (Sentence-Transformers)")
+        from sentence_transformers import SentenceTransformer
+        self.model = SentenceTransformer('all-MiniLM-L6-v2')
+        self.use_embeddings = True
     
     def index_document(self, doc_text: str, doc_id: str) -> Tuple[List[str], np.ndarray]:
-        """Index a document by chunking and embedding."""
+        """Index a document by chunking and dense embedding."""
         chunks = chunk_document(doc_text, self.chunk_size, self.chunk_overlap)
-        
+
         print(f"Chunked document into {len(chunks)} passages")
-        
-        # Generate embeddings for chunks
-        chunk_embeddings = self.model.encode(chunks, show_progress_bar=False)
-        
+
+        # Create dense embeddings using Sentence-Transformers
+        chunk_embeddings = self.model.encode(chunks)
+
         return chunks, chunk_embeddings
     
-    def retrieve_passages(self, claim: Claim, chunks: List[str], 
+    def retrieve_passages(self, claim: Claim, chunks: List[str],
                          chunk_embeddings: np.ndarray, doc_id: str) -> List[RetrievedPassage]:
         """Retrieve top-k most relevant passages for a claim."""
-        # Encode the claim
-        claim_embedding = self.model.encode([claim.claim_text], show_progress_bar=False)
-        
+        # Generate embedding for the claim
+        claim_embedding = self.model.encode([claim.claim_text])
+
         # Calculate similarity with all chunks
         similarities = cosine_similarity(claim_embedding, chunk_embeddings)[0]
-        
+
         # Get top-k indices
         top_k_indices = np.argsort(similarities)[-self.top_k:][::-1]
-        
+
         # Create retrieved passages
         retrieved = []
         for rank, idx in enumerate(top_k_indices):
@@ -69,25 +65,25 @@ class PassageRetriever:
                 passage_id=f"{doc_id}_passage_{idx}"
             )
             retrieved.append(passage)
-        
+
         return retrieved
     
-    def batch_retrieve(self, claims: List[Claim], chunks: List[str], 
+    def batch_retrieve(self, claims: List[Claim], chunks: List[str],
                       chunk_embeddings: np.ndarray, doc_id: str) -> Dict[str, List[RetrievedPassage]]:
         """Retrieve passages for multiple claims."""
-        # Encode all claims at once for efficiency
+        # Transform all claims at once for efficiency
         claim_texts = [claim.claim_text for claim in claims]
-        claim_embeddings = self.model.encode(claim_texts, show_progress_bar=True)
-        
+        claim_embeddings = self.model.encode(claim_texts)
+
         # Calculate similarities for all claims
         similarities = cosine_similarity(claim_embeddings, chunk_embeddings)
-        
+
         # Retrieve top-k for each claim
         results = {}
         for i, claim in enumerate(claims):
             claim_similarities = similarities[i]
             top_k_indices = np.argsort(claim_similarities)[-self.top_k:][::-1]
-            
+
             retrieved = []
             for rank, idx in enumerate(top_k_indices):
                 passage = RetrievedPassage(
@@ -96,9 +92,9 @@ class PassageRetriever:
                     passage_id=f"{doc_id}_passage_{idx}"
                 )
                 retrieved.append(passage)
-            
+
             results[claim.claim_id] = retrieved
-        
+
         return results
 
 class RetrievalAugmentedEvaluator:

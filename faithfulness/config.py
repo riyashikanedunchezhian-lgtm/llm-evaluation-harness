@@ -19,7 +19,7 @@ class FaithfulnessConfig:
     claim_decomposition_model: str = "claude-3-5-sonnet-20241022"
     
     # Retrieval settings
-    embedding_model: str = "all-MiniLM-L6-v2"
+    embedding_model: str = "tfidf"  # Using sklearn TF-IDF to avoid torch dependency
     chunk_size: int = 200  # words per chunk
     chunk_overlap: int = 50
     top_k_passages: int = 3
