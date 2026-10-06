@@ -4,7 +4,7 @@
 
 **Primary Research Question**: How reliable are automated LLM-as-a-Judge systems for evaluating the faithfulness (factual accuracy) of long-document summarization, and where do they fail compared to human judgment?
 
-This project implements a high-rigor evaluation pipeline designed to meet academic research standards (e.g., Yale University research guidelines). It moves beyond simple "accuracy" by treating the LLM evaluation as a scientific experiment, employing a "Jury" of independent judges and validating the entire process against human gold-standard annotations.
+This project implements a high-rigor evaluation pipeline designed to meet academic research standards. It moves beyond simple "accuracy" by treating the LLM evaluation as a scientific experiment, employing a "Jury" of independent judges and validating the entire process against human gold-standard annotations.
 
 ---
 
@@ -36,7 +36,8 @@ graph TD
     
     H --> I[Executive Summary Report]
 ```
-*For a detailed technical breakdown, see [ARCHITECTURE.md](faithfulness/ARCHITECTURE.md).*
+
+**Detailed Technical Blueprint**: For a full breakdown of the RAV (Retrieval-Augmented Verification) logic, jury aggregation methods, and statistical KPIs, see the [Detailed Architecture Guide](faithfulness/ARCHITECTURE.md).
 
 ---
 
@@ -143,7 +144,6 @@ Execute the full pipeline using SOTA models (Sonnet/GPT-4o):
 ```bash
 python faithfulness/simple_runner.py --num-docs 30 --dataset govreport
 ```
-
 ---
 
 ## 📊 Expected Output & Analysis

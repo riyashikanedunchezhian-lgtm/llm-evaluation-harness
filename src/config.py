@@ -91,6 +91,42 @@ MODEL_CONFIGS: Dict[str, ModelConfig] = {
         max_tokens=4096,
         temperature=0.7
     ),
+    "llama3-8b-8192": ModelConfig(
+        name="GPT-OSS 20B (Groq)",
+        provider="openai",
+        model_id="openai/gpt-oss-20b",
+        input_price_per_1k=0.0,
+        output_price_per_1k=0.0,
+        max_tokens=4096,
+        temperature=0.7
+    ),
+    "llama3-70b-8192": ModelConfig(
+        name="GPT-OSS 120B (Groq)",
+        provider="openai",
+        model_id="openai/gpt-oss-120b",
+        input_price_per_1k=0.0,
+        output_price_per_1k=0.0,
+        max_tokens=4096,
+        temperature=0.7
+    ),
+    "mixtral-8x7b-32768": ModelConfig(
+        name="Qwen 3.8 27B (Groq)",
+        provider="openai",
+        model_id="qwen/qwen3.8-27b",
+        input_price_per_1k=0.0,
+        output_price_per_1k=0.0,
+        max_tokens=4096,
+        temperature=0.7
+    ),
+    "nvidia/llama-3.1-8b-instruct": ModelConfig(
+        name="Llama 3.1 8B (NVIDIA)",
+        provider="openai",
+        model_id="meta/llama-3.1-8b-instruct",
+        input_price_per_1k=0.0,
+        output_price_per_1k=0.0,
+        max_tokens=4096,
+        temperature=0.7
+    ),
     "local-llama-3-8b": ModelConfig(
         name="Local Llama 3 8B",
         provider="local",

@@ -1,0 +1,1128 @@
+{
+  "sample_sample_0_llama3-8b-8192_claim_1": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_0_llama3-8b-8192_claim_2": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 2,
+      "Unverifiable": 1
+    },
+    "confidence": 0.7,
+    "agreement_score": 0.6666666666666666,
+    "jury_size": 3
+  },
+  "sample_sample_0_llama3-8b-8192_claim_3": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_0_llama3-8b-8192_claim_4": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_0_llama3-8b-8192_claim_5": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_0_llama3-8b-8192_claim_6": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_0_llama3-8b-8192_claim_7": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_0_llama3-8b-8192_claim_8": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_0_llama3-8b-8192_claim_9": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_0_llama3-8b-8192_claim_10": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_0_llama3-8b-8192_claim_11": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_0_llama3-70b-8192_claim_1": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_0_llama3-70b-8192_claim_2": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_0_llama3-70b-8192_claim_3": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_0_llama3-70b-8192_claim_4": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_0_llama3-70b-8192_claim_5": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_0_llama3-70b-8192_claim_6": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_0_llama3-70b-8192_claim_7": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_0_llama3-70b-8192_claim_8": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_0_llama3-70b-8192_claim_9": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_0_llama3-70b-8192_claim_10": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_0_llama3-70b-8192_claim_11": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_0_llama3-70b-8192_claim_12": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_0_llama3-70b-8192_claim_13": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_0_mixtral-8x7b-32768_claim_1": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_0_mixtral-8x7b-32768_claim_2": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_0_mixtral-8x7b-32768_claim_3": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_0_mixtral-8x7b-32768_claim_4": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_0_mixtral-8x7b-32768_claim_5": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_0_mixtral-8x7b-32768_claim_6": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_0_mixtral-8x7b-32768_claim_7": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_0_mixtral-8x7b-32768_claim_8": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_0_mixtral-8x7b-32768_claim_9": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_0_mixtral-8x7b-32768_claim_10": {
+    "majority_label": "Supported",
+    "label_distribution": {
+      "Supported": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-8b-8192_claim_1": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-8b-8192_claim_2": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-8b-8192_claim_3": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-8b-8192_claim_4": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-8b-8192_claim_5": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-8b-8192_claim_6": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-8b-8192_claim_7": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-8b-8192_claim_8": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-8b-8192_claim_9": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-8b-8192_claim_10": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-8b-8192_claim_11": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-8b-8192_claim_12": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-8b-8192_claim_13": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-8b-8192_claim_14": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-8b-8192_claim_15": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-8b-8192_claim_16": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-8b-8192_claim_17": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-8b-8192_claim_18": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-8b-8192_claim_19": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-70b-8192_claim_1": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-70b-8192_claim_2": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-70b-8192_claim_3": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-70b-8192_claim_4": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-70b-8192_claim_5": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-70b-8192_claim_6": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-70b-8192_claim_7": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-70b-8192_claim_8": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-70b-8192_claim_9": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-70b-8192_claim_10": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-70b-8192_claim_11": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-70b-8192_claim_12": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-70b-8192_claim_13": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-70b-8192_claim_14": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_llama3-70b-8192_claim_15": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_mixtral-8x7b-32768_claim_1": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_mixtral-8x7b-32768_claim_2": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_mixtral-8x7b-32768_claim_3": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_mixtral-8x7b-32768_claim_4": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_mixtral-8x7b-32768_claim_5": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_mixtral-8x7b-32768_claim_6": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_mixtral-8x7b-32768_claim_7": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_mixtral-8x7b-32768_claim_8": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_mixtral-8x7b-32768_claim_9": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_mixtral-8x7b-32768_claim_10": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_mixtral-8x7b-32768_claim_11": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_1_mixtral-8x7b-32768_claim_12": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_llama3-8b-8192_claim_1": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_llama3-8b-8192_claim_2": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_llama3-8b-8192_claim_3": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_llama3-8b-8192_claim_4": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_llama3-8b-8192_claim_5": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_llama3-8b-8192_claim_6": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_llama3-8b-8192_claim_7": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_llama3-8b-8192_claim_8": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_llama3-8b-8192_claim_9": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_llama3-8b-8192_claim_10": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_llama3-8b-8192_claim_11": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_llama3-8b-8192_claim_12": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_llama3-8b-8192_claim_13": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_llama3-8b-8192_claim_14": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_llama3-70b-8192_claim_1": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_llama3-70b-8192_claim_2": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_llama3-70b-8192_claim_3": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_llama3-70b-8192_claim_4": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_llama3-70b-8192_claim_5": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_llama3-70b-8192_claim_6": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_llama3-70b-8192_claim_7": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_llama3-70b-8192_claim_8": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_llama3-70b-8192_claim_9": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_llama3-70b-8192_claim_10": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_llama3-70b-8192_claim_11": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_llama3-70b-8192_claim_12": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_llama3-70b-8192_claim_13": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_llama3-70b-8192_claim_14": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_llama3-70b-8192_claim_15": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_llama3-70b-8192_claim_16": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_mixtral-8x7b-32768_claim_1": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_mixtral-8x7b-32768_claim_2": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_mixtral-8x7b-32768_claim_3": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_mixtral-8x7b-32768_claim_4": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_mixtral-8x7b-32768_claim_5": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_mixtral-8x7b-32768_claim_6": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_mixtral-8x7b-32768_claim_7": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_mixtral-8x7b-32768_claim_8": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_mixtral-8x7b-32768_claim_9": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_mixtral-8x7b-32768_claim_10": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_mixtral-8x7b-32768_claim_11": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_mixtral-8x7b-32768_claim_12": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_mixtral-8x7b-32768_claim_13": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_mixtral-8x7b-32768_claim_14": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  },
+  "sample_sample_2_mixtral-8x7b-32768_claim_15": {
+    "majority_label": "Unverifiable",
+    "label_distribution": {
+      "Unverifiable": 3
+    },
+    "confidence": 0.9,
+    "agreement_score": 1.0,
+    "jury_size": 3
+  }
+}

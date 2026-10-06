@@ -1,67 +1,62 @@
-# Faithfulness Pipeline Architecture
+# 🏛️ Faithfulness Evaluation Framework: Technical Architecture
 
-## 📐 System Overview
+This document describes the methodological and technical blueprint of the Faithfulness Evaluation project. The system is designed to objectively measure the factual reliability of LLM-generated summaries compared to their source documents.
 
-The Faithfulness Evaluation system is designed as a rigorous, multi-stage pipeline to quantify the factual accuracy of LLM-generated summaries. Unlike simple similarity metrics, this system employs a **Retrieval-Augmented Jury (RAJ)** approach to ensure every claim is verified against source evidence.
+## 🛠️ High-Level System Flow
 
-### 🌊 Execution Flow
+The pipeline follows a strict 7-stage process to ensure a reproducible and scientifically sound evaluation.
 
 ```mermaid
 graph TD
-    A[Dataset: GovReport/ArXiv] --> B[Model: Summary Generation]
-    B --> C[ClaimDecomposer: Atomic Claims]
-    C --> D[PassageRetriever: RAG Context]
-    D --> E[Jury: Judges 1-3]
-    E --> F[Majority Vote: Aggregation]
-    F --> G[Agreement Metrics: Fleiss' Kappa]
-    G --> H[Human Validation: Cohen's Kappa]
-    
-    subgraph "Faithfulness Pipeline"
-    B
-    C
-    D
-    E
-    F
-    G
-    end
-    
-    H --> I[Executive Summary Report]
+    A[Dataset Loader] -->|Raw Documents| B[Summary Generator]
+    B -->|Generated Summaries| C[Claim Decomposer]
+    C -->|Atomic Claims| D[Passage Retriever]
+    D -->|RAG Evidence| E[Faithfulness Jury]
+    E -->|Individual Verdicts| F[Jury Aggregator]
+    F -->|Majority Labels| G[Agreement Metrics]
+    G -->|Fleiss Kappa / Cohen Kappa| H[Final Research Report]
 ```
 
----
-
-## 🧩 Component Deep Dive
+## 🔬 Methodological Breakdown
 
 ### 1. Atomic Claim Decomposition
-To avoid the "averaging effect" of long summaries, we decompose summaries into **Atomic Claims**. A claim is atomic if it contains exactly one factual assertion.
-- **Validation**: Every claim is checked for vagueness or compound logic.
+To avoid the ambiguity of evaluating a whole summary, the system breaks summaries into **Atomic Claims**. 
+- **Rule**: Each claim must be a single, verifiable factual assertion.
+- **Process**: A high-capability LLM (e.g., Llama 3 70B) is used to decompose sentences into non-overlapping facts.
 
 ### 2. Retrieval-Augmented Verification (RAV)
-To eliminate LLM hallucination during judgment, we use **Dense Retrieval** (`sentence-transformers`). For every atomic claim, we retrieve the top-3 most relevant passages from the original source document, creating a constrained context for the judge.
+Instead of passing the entire source document to the judge (which introduces "lost-in-the-middle" noise), we use a RAG approach:
+- **Dense Retrieval**: Uses `sentence-transformers` to find the top-K most relevant passages for each specific claim.
+- **TF-IDF Fallback**: Ensures the system remains operational on environments where PyTorch DLLs fail.
 
-### 3. The Jury Mechanism
-To mitigate the stochastic nature of LLMs, we employ a **Jury of 3 independent judges**.
-- **Independence**: Each judge evaluates the claim and the retrieved passages separately.
-- **Aggregation**: The final label (**Supported**, **Contradicted**, or **Unverifiable**) is determined by a majority vote.
-- **Consistency**: We measure the "stability" of the jury using **Fleiss' Kappa ($\kappa$)**.
+### 3. The LLM Jury Model
+To eliminate the bias of a single model, we implement a **Jury System**:
+- **Diverse Perspectives**: Multiple models (the "Jury") independently evaluate the same claim.
+- **Verdict Labels**: Each judge must assign one of three labels:
+    - `Supported`: Directly stated or clearly implied.
+    - `Contradicted`: Directly conflicts with the source.
+    - `Unverifiable`: Insufficient information in the source.
 
----
+### 4. Statistical Reliability Metrics
+The system doesn't just report "faithfulness"; it reports the **reliability of the measurement itself**.
 
-## 🎯 Research Benchmarks (KPIs)
+- **Fleiss' Kappa ($\kappa$)**: Measures the degree of agreement among the jury members. 
+    - $\kappa < 0.4$: Poor agreement
+    - $0.4 \le \kappa < 0.6$: Moderate agreement
+    - $\kappa \ge 0.6$: Substantial agreement
+- **Confidence Score**: Derived from the label distribution (e.g., 3/3 agreement = High Confidence).
 
-To qualify as a reliable evaluation system, the project targets the following performance thresholds:
+## 🚀 Technical Stack
 
-| Metric | Target | Interpretation |
-| :--- | :---: | :--- |
-| **Inter-Judge Agreement** | $\kappa > 0.60$ | Substantial agreement among LLM judges. |
-| **Human-Auto Alignment** | $\kappa > 0.60$ | Automated system is a reliable proxy for human experts. |
-| **Position Bias Rate** | $< 5\%$ | Minimal sensitivity to the order of retrieved passages. |
-| **Faithfulness Rate** | $> 75\%$ | Baseline accuracy for state-of-the-art models (e.g., Sonnet). |
+| Component | Technology | Purpose |
+| :--- | :--- | :--- |
+| **Inference** | Groq / NVIDIA NIM | Low-latency, free-tier access to Llama 3 / Mixtral |
+| **Embeddings** | Sentence-Transformers | Dense vector search for evidence retrieval |
+| **Logic** | Python 3.11 | Core orchestration and statistical analysis |
+| **Data** | JSON / Markdown | Transparent, human-readable results |
 
-## 📂 Output Schema
-
-The system produces a fully auditable trail of evidence:
-- `documents.json`: The original source.
-- `claims.json`: The broken-down factual assertions.
-- `jury_verdicts.json`: The raw reasoning and labels from every judge.
-- `pipeline_results.json`: The final statistical summary.
+## 🎯 Research KPIs
+The framework aims to optimize for:
+1. **High Inter-rater Reliability**: Target $\kappa > 0.6$ for all evaluations.
+2. **Zero-Cost Execution**: Ability to run full-scale evaluations using free-tier API keys.
+3. **Evidence Transparency**: Every verdict is backed by a specific retrieved passage from the source.

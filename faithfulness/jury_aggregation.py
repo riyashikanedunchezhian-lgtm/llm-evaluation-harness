@@ -25,9 +25,9 @@ class JuryVerdict:
 class FaithfulnessJury:
     """Jury-style evaluation for faithfulness classification."""
     
-    def __init__(self, model_client, jury_size: int = 3, parallel: bool = True):
+    def __init__(self, model_client, judge_model: str = "claude-3-5-sonnet-20241022", jury_size: int = 3, parallel: bool = True):
         self.model_client = model_client
-        self.judge = FaithfulnessJudge(model_client)
+        self.judge = FaithfulnessJudge(model_client, model_id=judge_model)
         self.jury_size = jury_size
         self.parallel = parallel
     

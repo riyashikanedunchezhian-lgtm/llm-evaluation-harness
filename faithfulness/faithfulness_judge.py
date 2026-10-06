@@ -31,21 +31,24 @@ class FaithfulnessJudge:
         self.model_id = model_id
         self.model_config = MODEL_CONFIGS[model_id]
     
-    def classify_claim(self, claim: Claim, retrieved_passages: List[RetrievedPassage], 
+    def classify_claim(self, claim: Claim, retrieved_passages: List[RetrievedPassage],
                       judge_id: int = 0) -> FaithfulnessVerdict:
         """Classify a claim as Supported, Contradicted, or Unverifiable."""
         system_prompt = self._build_system_prompt()
         user_prompt = self._build_user_prompt(claim, retrieved_passages)
-        
+
+        # IMPORTANT: Use the actual model_id from the config, not the config key
+        actual_model_id = self.model_config.model_id
+
         response = self.model_client.call_model(
-            model_id=self.model_id,
+            model_id=actual_model_id,
             provider=self.model_config.provider,
             prompt=user_prompt,
             max_tokens=2048,
             temperature=0.3,  # Lower temperature for consistent classification
             system_prompt=system_prompt
         )
-        
+
         verdict = self._parse_verdict(response.content, judge_id)
         return verdict
     

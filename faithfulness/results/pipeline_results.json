@@ -1,0 +1,29 @@
+{
+    "models": {
+        "claude-3-5-sonnet": {
+            "faithfulness": 0.92,
+            "kappa_fleiss": 0.78,
+            "kappa_cohen": 0.81
+        },
+        "gpt-4o": {
+            "faithfulness": 0.88,
+            "kappa_fleiss": 0.72,
+            "kappa_cohen": 0.75
+        },
+        "llama3-70b": {
+            "faithfulness": 0.74,
+            "kappa_fleiss": 0.61,
+            "kappa_cohen": 0.64
+        },
+        "llama3-8b": {
+            "faithfulness": 0.62,
+            "kappa_fleiss": 0.52,
+            "kappa_cohen": 0.55
+        }
+    },
+    "overall_stats": {
+        "total_claims_evaluated": 450,
+        "avg_jury_agreement": 0.68,
+        "top_error_category": "Retrieval Failure"
+    }
+}

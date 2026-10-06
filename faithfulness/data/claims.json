@@ -1,0 +1,645 @@
+{
+  "sample_sample_0_llama3-8b-8192": [
+    {
+      "claim_id": "sample_sample_0_llama3-8b-8192_claim_1",
+      "claim_text": "GDP rose 2.5% in the third quarter of 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_0_llama3-8b-8192_claim_2",
+      "claim_text": "Unemployment fell to 4.1% in the third quarter of 2023, the lowest level in five years.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_0_llama3-8b-8192_claim_3",
+      "claim_text": "Inflation remained near the Federal Reserve\u2019s 2% target in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_0_llama3-8b-8192_claim_4",
+      "claim_text": "Consumer spending grew 3.2% in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_0_llama3-8b-8192_claim_5",
+      "claim_text": "Business investment increased 4.1% in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_0_llama3-8b-8192_claim_6",
+      "claim_text": "The United States recorded a trade surplus of $2.3\u202fbillion in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_0_llama3-8b-8192_claim_7",
+      "claim_text": "National home prices rose 5.2% in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_0_llama3-8b-8192_claim_8",
+      "claim_text": "The Federal Reserve kept the federal funds rate at 5.25% in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_0_llama3-8b-8192_claim_9",
+      "claim_text": "The S&P\u202f500 index gained 15% over the course of 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_0_llama3-8b-8192_claim_10",
+      "claim_text": "Consumer confidence reached its highest level since the year 2000 in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_0_llama3-8b-8192_claim_11",
+      "claim_text": "The U.S. economy expanded in 2023.",
+      "source_sentence": null
+    }
+  ],
+  "sample_sample_0_llama3-70b-8192": [
+    {
+      "claim_id": "sample_sample_0_llama3-70b-8192_claim_1",
+      "claim_text": "The U.S. economy expanded in 2023",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_0_llama3-70b-8192_claim_2",
+      "claim_text": "Third\u2011quarter GDP grew by 2.5% in 2023",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_0_llama3-70b-8192_claim_3",
+      "claim_text": "The unemployment rate fell to a five\u2011year low of 4.1% in 2023",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_0_llama3-70b-8192_claim_4",
+      "claim_text": "Inflation remained steady at 2.0% in 2023",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_0_llama3-70b-8192_claim_5",
+      "claim_text": "The 2.0% inflation rate matched the Federal Reserve\u2019s target in 2023",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_0_llama3-70b-8192_claim_6",
+      "claim_text": "Consumer spending rose by 3.2% in 2023",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_0_llama3-70b-8192_claim_7",
+      "claim_text": "Business investment increased by 4.1% in 2023",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_0_llama3-70b-8192_claim_8",
+      "claim_text": "The trade balance turned positive in 2023",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_0_llama3-70b-8192_claim_9",
+      "claim_text": "The trade surplus was $2.3\u202fbillion in 2023",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_0_llama3-70b-8192_claim_10",
+      "claim_text": "Home prices nationwide increased by 5.2% in 2023",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_0_llama3-70b-8192_claim_11",
+      "claim_text": "The Federal Reserve kept its policy rate at 5.25% in 2023",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_0_llama3-70b-8192_claim_12",
+      "claim_text": "The S&P\u202f500 gained 15% in 2023",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_0_llama3-70b-8192_claim_13",
+      "claim_text": "Consumer confidence reached its highest level since 2000 in 2023",
+      "source_sentence": null
+    }
+  ],
+  "sample_sample_0_mixtral-8x7b-32768": [
+    {
+      "claim_id": "sample_sample_0_mixtral-8x7b-32768_claim_1",
+      "claim_text": "U.S. GDP increased by 2.5% in 2023",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_0_mixtral-8x7b-32768_claim_2",
+      "claim_text": "U.S. unemployment was 4.1% in 2023, representing a five\u2011year low",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_0_mixtral-8x7b-32768_claim_3",
+      "claim_text": "Inflation was 2.0% in 2023, within the Federal Reserve's target range",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_0_mixtral-8x7b-32768_claim_4",
+      "claim_text": "Consumer spending rose by 3.2% in 2023",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_0_mixtral-8x7b-32768_claim_5",
+      "claim_text": "Business investment grew by 4.1% in 2023",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_0_mixtral-8x7b-32768_claim_6",
+      "claim_text": "Home prices increased by 5.2% in 2023",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_0_mixtral-8x7b-32768_claim_7",
+      "claim_text": "International trade posted a surplus of $2.3\u202fbillion in 2023",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_0_mixtral-8x7b-32768_claim_8",
+      "claim_text": "The S&P\u202f500 gained 15% over the course of 2023",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_0_mixtral-8x7b-32768_claim_9",
+      "claim_text": "Consumer confidence levels reached their highest point since 2000 in 2023",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_0_mixtral-8x7b-32768_claim_10",
+      "claim_text": "The Federal Reserve kept interest rates at 5.25% throughout 2023",
+      "source_sentence": null
+    }
+  ],
+  "sample_sample_1_llama3-8b-8192": [
+    {
+      "claim_id": "sample_sample_1_llama3-8b-8192_claim_1",
+      "claim_text": "Global carbon emissions rose 1.2\u202f% in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_llama3-8b-8192_claim_2",
+      "claim_text": "Renewable energy accounted for 30\u202f% of worldwide electricity generation in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_llama3-8b-8192_claim_3",
+      "claim_text": "Renewable energy\u2019s share of worldwide electricity generation increased from 25\u202f% in 2022 to 30\u202f% in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_llama3-8b-8192_claim_4",
+      "claim_text": "The United States cut emissions by 3.5\u202f% in 2023 through clean\u2011energy investments.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_llama3-8b-8192_claim_5",
+      "claim_text": "The European Union\u2019s emissions declined by 2.8\u202f% in 2023 due to carbon pricing.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_llama3-8b-8192_claim_6",
+      "claim_text": "China\u2019s emissions surged 4.2\u202f% in 2023 amid continued industrial expansion.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_llama3-8b-8192_claim_7",
+      "claim_text": "Renewable\u2011energy capacity grew markedly in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_llama3-8b-8192_claim_8",
+      "claim_text": "Solar installations grew 25\u202f% in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_llama3-8b-8192_claim_9",
+      "claim_text": "China was the leading country in solar\u2011installation growth in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_llama3-8b-8192_claim_10",
+      "claim_text": "Wind capacity increased 15\u202f% in Europe in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_llama3-8b-8192_claim_11",
+      "claim_text": "Wind capacity increased 15\u202f% in North America in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_llama3-8b-8192_claim_12",
+      "claim_text": "Electric\u2011vehicle sales reached 14\u202fmillion units in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_llama3-8b-8192_claim_13",
+      "claim_text": "Electric\u2011vehicle sales rose 35\u202f% year\u2011over\u2011year in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_llama3-8b-8192_claim_14",
+      "claim_text": "Battery\u2011storage capacity doubled in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_llama3-8b-8192_claim_15",
+      "claim_text": "$5\u202fbillion was invested in carbon\u2011capture technology in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_llama3-8b-8192_claim_16",
+      "claim_text": "Commercial deployment of carbon\u2011capture technology remained limited in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_llama3-8b-8192_claim_17",
+      "claim_text": "Forest conservation protected 2\u202fmillion hectares of tropical rainforest in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_llama3-8b-8192_claim_18",
+      "claim_text": "Ocean acidification worsened in 2023, with a pH drop of 0.003.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_llama3-8b-8192_claim_19",
+      "claim_text": "Extreme weather events caused $200\u202fbillion in global economic damages in 2023.",
+      "source_sentence": null
+    }
+  ],
+  "sample_sample_1_llama3-70b-8192": [
+    {
+      "claim_id": "sample_sample_1_llama3-70b-8192_claim_1",
+      "claim_text": "Global carbon emissions rose by 1.2% in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_llama3-70b-8192_claim_2",
+      "claim_text": "Renewable electricity accounted for 30% of total generation worldwide in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_llama3-70b-8192_claim_3",
+      "claim_text": "Renewable electricity accounted for 25% of total generation worldwide in 2022.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_llama3-70b-8192_claim_4",
+      "claim_text": "The United States cut its emissions by 3.5% through clean\u2011energy investments.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_llama3-70b-8192_claim_5",
+      "claim_text": "The European Union lowered emissions by 2.8% via carbon pricing.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_llama3-70b-8192_claim_6",
+      "claim_text": "China\u2019s emissions grew by 4.2% amid ongoing industrial expansion.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_llama3-70b-8192_claim_7",
+      "claim_text": "Solar installations surged 25% globally, led by China.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_llama3-70b-8192_claim_8",
+      "claim_text": "Wind capacity grew 15% globally.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_llama3-70b-8192_claim_9",
+      "claim_text": "Battery storage capacity doubled.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_llama3-70b-8192_claim_10",
+      "claim_text": "Electric\u2011vehicle sales rose 35% to 14\u202fmillion units worldwide.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_llama3-70b-8192_claim_11",
+      "claim_text": "Investment in carbon\u2011capture technology reached $5\u202fbillion.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_llama3-70b-8192_claim_12",
+      "claim_text": "Commercial rollout of carbon\u2011capture technology remains limited.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_llama3-70b-8192_claim_13",
+      "claim_text": "Forest conservation protected 2\u202fmillion hectares of tropical rainforest.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_llama3-70b-8192_claim_14",
+      "claim_text": "Ocean acidification worsened, with global average pH decreasing by 0.003.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_llama3-70b-8192_claim_15",
+      "claim_text": "Extreme weather events inflicted roughly $200\u202fbillion in global economic damage.",
+      "source_sentence": null
+    }
+  ],
+  "sample_sample_1_mixtral-8x7b-32768": [
+    {
+      "claim_id": "sample_sample_1_mixtral-8x7b-32768_claim_1",
+      "claim_text": "Global carbon emissions rose by 1.2% in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_mixtral-8x7b-32768_claim_2",
+      "claim_text": "China\u2019s industrial output increased by 4.2% in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_mixtral-8x7b-32768_claim_3",
+      "claim_text": "The increase in China\u2019s industrial output offset reductions in carbon emissions achieved in the United States in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_mixtral-8x7b-32768_claim_4",
+      "claim_text": "The increase in China\u2019s industrial output offset reductions in carbon emissions achieved in the European Union in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_mixtral-8x7b-32768_claim_5",
+      "claim_text": "Renewable energy\u2019s share of global electricity generation reached 30% in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_mixtral-8x7b-32768_claim_6",
+      "claim_text": "Solar capacity experienced substantial growth in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_mixtral-8x7b-32768_claim_7",
+      "claim_text": "Wind capacity experienced substantial growth in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_mixtral-8x7b-32768_claim_8",
+      "claim_text": "Electric vehicle sales surged by 35% in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_mixtral-8x7b-32768_claim_9",
+      "claim_text": "Battery storage capacity doubled in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_mixtral-8x7b-32768_claim_10",
+      "claim_text": "Carbon capture technology remained limited in commercial deployment in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_mixtral-8x7b-32768_claim_11",
+      "claim_text": "Ocean acidification worsened in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_1_mixtral-8x7b-32768_claim_12",
+      "claim_text": "Extreme weather events caused $200\u202fbillion in economic damages in 2023.",
+      "source_sentence": null
+    }
+  ],
+  "sample_sample_2_llama3-8b-8192": [
+    {
+      "claim_id": "sample_sample_2_llama3-8b-8192_claim_1",
+      "claim_text": "In 2023, U.S. health\u2011care spending hit a record 18\u202f% of GDP.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_llama3-8b-8192_claim_2",
+      "claim_text": "In 2023, Medicare enrollment grew by 2\u202fmillion beneficiaries.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_llama3-8b-8192_claim_3",
+      "claim_text": "Medicaid expansion added another 5\u202fmillion low\u2011income individuals.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_llama3-8b-8192_claim_4",
+      "claim_text": "Prescription drug prices rose 6\u202f%.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_llama3-8b-8192_claim_5",
+      "claim_text": "The 6\u202f% increase in prescription drug prices was slower thanks to recent policy measures.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_llama3-8b-8192_claim_6",
+      "claim_text": "Hospital consolidation continued, with 15\u202f% of facilities merging or acquiring competitors.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_llama3-8b-8192_claim_7",
+      "claim_text": "Telehealth use settled at 15\u202f% of all visits.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_llama3-8b-8192_claim_8",
+      "claim_text": "Mental\u2011health demand surged 25\u202f%.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_llama3-8b-8192_claim_9",
+      "claim_text": "Preventive\u2011care visits climbed only 10\u202f%.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_llama3-8b-8192_claim_10",
+      "claim_text": "Medical debt affected 20\u202f% of households.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_llama3-8b-8192_claim_11",
+      "claim_text": "The average medical debt fell 8\u202f%.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_llama3-8b-8192_claim_12",
+      "claim_text": "15\u202f% of nursing positions were vacant.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_llama3-8b-8192_claim_13",
+      "claim_text": "Ten rural hospitals closed.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_llama3-8b-8192_claim_14",
+      "claim_text": "Overall health\u2011insurance coverage stayed steady at 91\u202f%.",
+      "source_sentence": null
+    }
+  ],
+  "sample_sample_2_llama3-70b-8192": [
+    {
+      "claim_id": "sample_sample_2_llama3-70b-8192_claim_1",
+      "claim_text": "U.S. healthcare spending in 2023 was 18\u202f% of GDP, a record high.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_llama3-70b-8192_claim_2",
+      "claim_text": "Medicare enrollment rose by 2\u202fmillion in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_llama3-70b-8192_claim_3",
+      "claim_text": "Medicaid expansion added 5\u202fmillion low\u2011income beneficiaries in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_llama3-70b-8192_claim_4",
+      "claim_text": "Overall insurance coverage was stable at 91\u202f% of the U.S. population in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_llama3-70b-8192_claim_5",
+      "claim_text": "Prescription drug prices grew by 6\u202f% in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_llama3-70b-8192_claim_6",
+      "claim_text": "The slower pace of prescription\u2011drug\u2011price growth was attributed to policy measures.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_llama3-70b-8192_claim_7",
+      "claim_text": "Hospital consolidation resulted in 15\u202f% of facilities merging with or acquiring competitors in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_llama3-70b-8192_claim_8",
+      "claim_text": "Rural areas saw the closure of 10 hospitals in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_llama3-70b-8192_claim_9",
+      "claim_text": "Telehealth accounted for 15\u202f% of all medical visits in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_llama3-70b-8192_claim_10",
+      "claim_text": "Telehealth usage in 2023 was far above pre\u2011pandemic levels.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_llama3-70b-8192_claim_11",
+      "claim_text": "Demand for mental\u2011health services surged by 25\u202f% in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_llama3-70b-8192_claim_12",
+      "claim_text": "Preventive\u2011care utilization rose by 10\u202f% in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_llama3-70b-8192_claim_13",
+      "claim_text": "Medical debt affected one\u2011fifth of households in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_llama3-70b-8192_claim_14",
+      "claim_text": "Average medical debt fell by 8\u202f% in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_llama3-70b-8192_claim_15",
+      "claim_text": "Nursing shortages persisted with 15\u202f% of positions unfilled in 2023.",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_llama3-70b-8192_claim_16",
+      "claim_text": "The healthcare workforce overall remained strained in 2023.",
+      "source_sentence": null
+    }
+  ],
+  "sample_sample_2_mixtral-8x7b-32768": [
+    {
+      "claim_id": "sample_sample_2_mixtral-8x7b-32768_claim_1",
+      "claim_text": "In 2023, healthcare spending was 18% of GDP",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_mixtral-8x7b-32768_claim_2",
+      "claim_text": "In 2023, healthcare spending hit a historic high",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_mixtral-8x7b-32768_claim_3",
+      "claim_text": "The 2023 increase in healthcare spending was driven by increased Medicare enrollment",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_mixtral-8x7b-32768_claim_4",
+      "claim_text": "The 2023 increase in healthcare spending was driven by Medicaid expansion that covered millions of additional individuals",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_mixtral-8x7b-32768_claim_5",
+      "claim_text": "Prescription drug price growth slowed due to policy interventions",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_mixtral-8x7b-32768_claim_6",
+      "claim_text": "The healthcare sector faced ongoing structural challenges",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_mixtral-8x7b-32768_claim_7",
+      "claim_text": "Ongoing structural challenges included continued hospital consolidation",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_mixtral-8x7b-32768_claim_8",
+      "claim_text": "Ongoing structural challenges included persistent nursing workforce shortages",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_mixtral-8x7b-32768_claim_9",
+      "claim_text": "Ongoing structural challenges included the closure of rural hospitals",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_mixtral-8x7b-32768_claim_10",
+      "claim_text": "Telehealth stabilized at 15% of visits",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_mixtral-8x7b-32768_claim_11",
+      "claim_text": "Demand for mental health services rose",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_mixtral-8x7b-32768_claim_12",
+      "claim_text": "Demand for preventive care services rose",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_mixtral-8x7b-32768_claim_13",
+      "claim_text": "Health insurance coverage remained stable at 91% of the population",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_mixtral-8x7b-32768_claim_14",
+      "claim_text": "Medical debt affected one-fifth of households",
+      "source_sentence": null
+    },
+    {
+      "claim_id": "sample_sample_2_mixtral-8x7b-32768_claim_15",
+      "claim_text": "Average medical debt amounts were lower",
+      "source_sentence": null
+    }
+  ]
+}

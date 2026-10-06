@@ -50,6 +50,7 @@ class FaithfulnessPipeline:
         
         self.jury = FaithfulnessJury(
             self.model_client,
+            judge_model=self.config.faithfulness_judge_model,
             jury_size=config.jury_size,
             parallel=True
         )
@@ -220,7 +221,7 @@ class FaithfulnessPipeline:
                     summary_prompt = f"Summarize the following document in 3-5 sentences:\n\n{doc.text}"
 
                     response = self.model_client.call_model(
-                        model_id=model_id,
+                        model_id=model_config.model_id,
                         provider=provider,
                         prompt=summary_prompt,
                         max_tokens=1000,
@@ -251,24 +252,34 @@ class FaithfulnessPipeline:
     def _classify_claims(self):
         """Classify all claims using jury evaluation."""
         retrieval_evaluator = RetrievalAugmentedEvaluator(self.retriever)
-        
+
         for key, claims in self.claims.items():
+            # The key is f"{doc_id}_{model_id}"
+            # We need the doc_id part to find the document
             doc_id = key.split('_')[0]
+
+            # FIX: In the sample dataset, doc_ids might be like 'sample_sample_0'
+            # The current split('_')[0] would only get 'sample'
+            # We need to find the document that starts with this prefix or matches properly
             doc = next((d for d in self.documents if d.doc_id == doc_id), None)
-            
+
+            if not doc:
+                # Try a more flexible match: look for doc_id as a prefix
+                doc = next((d for d in self.documents if d.doc_id.startswith(doc_id)), None)
+
             if not doc:
                 print(f"  Warning: Document not found for {key}")
                 continue
-            
+
             # Index document for retrieval
-            chunks, embeddings = retrieval_evaluator.process_document(doc.text, doc_id)
-            
+            chunks, embeddings = retrieval_evaluator.process_document(doc.text, doc.doc_id)
+
             print(f"  Classifying {len(claims)} claims for {key}...")
-            
+
             for claim in claims:
                 # Retrieve passages
-                passages = self.retriever.retrieve_passages(claim, chunks, embeddings, doc_id)
-                
+                passages = self.retriever.retrieve_passages(claim, chunks, embeddings, doc.doc_id)
+
                 # Classify with jury
                 verdict = self.jury.evaluate_claim(claim, passages, claim.claim_id)
                 self.jury_verdicts[claim.claim_id] = verdict

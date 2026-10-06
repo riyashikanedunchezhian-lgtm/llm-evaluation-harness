@@ -1,0 +1,43 @@
+{
+  "config": {
+    "dataset_name": "sample",
+    "num_documents": 3,
+    "min_word_count": 1500,
+    "summary_models": [
+      "llama3-8b-8192",
+      "llama3-70b-8192",
+      "mixtral-8x7b-32768"
+    ],
+    "claim_decomposition_model": "llama3-70b-8192",
+    "embedding_model": "dense",
+    "chunk_size": 200,
+    "chunk_overlap": 50,
+    "top_k_passages": 3,
+    "faithfulness_judge_model": "llama3-70b-8192",
+    "jury_size": 3,
+    "agreement_threshold": 0.65,
+    "output_dir": "faithfulness/data"
+  },
+  "timestamp": "2026-10-06T08:15:28.475488",
+  "stages": {
+    "dataset": {
+      "num_documents": 3,
+      "avg_word_count": 1667.3333333333333
+    },
+    "summaries": {
+      "total_summaries": 9
+    },
+    "claim_decomposition": {
+      "total_claims": 125,
+      "avg_claims_per_summary": 13.88888888888889
+    },
+    "classification": {
+      "total_classifications": 125
+    },
+    "inter_judge_agreement": {
+      "percent_agreement": 0.9973333333333333,
+      "fleiss_kappa": 0.9861858100640977,
+      "num_evaluations": 125
+    }
+  }
+}

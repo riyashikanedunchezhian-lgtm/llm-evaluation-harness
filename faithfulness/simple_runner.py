@@ -261,8 +261,9 @@ Examples:
     )
 
     if args.free_mode:
-        print("Free Mode active: Overriding models to Groq/NVIDIA Free Tiers")
-        config.summary_models = ["llama3-8b-8192", "nvidia/llama-3.1-8b-instruct", "mixtral-8x7b-32768"]
+        print("Free Mode active: Using Groq Free Tier only")
+        # We must use the KEYS of MODEL_CONFIGS, not the model_ids
+        config.summary_models = ["llama3-8b-8192", "llama3-70b-8192", "mixtral-8x7b-32768"]
         config.claim_decomposition_model = "llama3-70b-8192"
         config.faithfulness_judge_model = "llama3-70b-8192"
     else:

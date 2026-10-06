@@ -33,16 +33,19 @@ class ClaimDecomposer:
         """Decompose a summary into atomic claims."""
         system_prompt = self._build_system_prompt()
         user_prompt = self._build_user_prompt(summary)
-        
+
+        # IMPORTANT: Use the actual model_id from the config, not the config key
+        actual_model_id = self.model_config.model_id
+
         response = self.model_client.call_model(
-            model_id=self.model_id,
+            model_id=actual_model_id,
             provider=self.model_config.provider,
             prompt=user_prompt,
             max_tokens=4096,
             temperature=0.3,  # Lower temperature for consistent decomposition
             system_prompt=system_prompt
         )
-        
+
         claims = self._parse_claims(response.content, doc_id)
         return claims
     

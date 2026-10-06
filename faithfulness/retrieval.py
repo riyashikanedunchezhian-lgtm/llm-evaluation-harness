@@ -1,7 +1,7 @@
 """Passage retrieval for faithfulness evaluation."""
 
 import os
-from typing import List, Dict, Tuple
+from typing import List, Dict, Tuple, Any
 from dataclasses import dataclass
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
@@ -27,36 +27,43 @@ class PassageRetriever:
         self.chunk_overlap = chunk_overlap
         self.top_k = top_k
 
-        # Use Sentence-Transformers for research-grade dense retrieval
-        print(f"Using {embedding_model} retrieval (Sentence-Transformers)")
-        from sentence_transformers import SentenceTransformer
-        self.model = SentenceTransformer('all-MiniLM-L6-v2')
-        self.use_embeddings = True
-    
-    def index_document(self, doc_text: str, doc_id: str) -> Tuple[List[str], np.ndarray]:
-        """Index a document by chunking and dense embedding."""
-        chunks = chunk_document(doc_text, self.chunk_size, self.chunk_overlap)
+        try:
+            print(f"Attempting {embedding_model} retrieval (Sentence-Transformers)...")
+            from sentence_transformers import SentenceTransformer
+            self.model = SentenceTransformer('all-MiniLM-L6-v2')
+            self.use_embeddings = True
+        except Exception as e:
+            print(f"\n[!] Dense retrieval failed to load: {e}")
+            print("[!] Falling back to TF-IDF keyword retrieval to ensure pipeline continuity.")
+            self.model = None
+            self.use_embeddings = False
+            self.vectorizer = TfidfVectorizer(stop_words='english')
 
+    def index_document(self, doc_text: str, doc_id: str) -> Tuple[List[str], Any]:
+        """Index a document by chunking and embedding (or TF-IDF)."""
+        chunks = chunk_document(doc_text, self.chunk_size, self.chunk_overlap)
         print(f"Chunked document into {len(chunks)} passages")
 
-        # Create dense embeddings using Sentence-Transformers
-        chunk_embeddings = self.model.encode(chunks)
+        if self.use_embeddings:
+            return chunks, self.model.encode(chunks)
 
-        return chunks, chunk_embeddings
-    
+        # ponytail: Fallback to TF-IDF if torch fails
+        tfidf_matrix = self.vectorizer.fit_transform(chunks)
+        return chunks, tfidf_matrix
+
     def retrieve_passages(self, claim: Claim, chunks: List[str],
-                         chunk_embeddings: np.ndarray, doc_id: str) -> List[RetrievedPassage]:
+                         chunk_embeddings: Any, doc_id: str) -> List[RetrievedPassage]:
         """Retrieve top-k most relevant passages for a claim."""
-        # Generate embedding for the claim
-        claim_embedding = self.model.encode([claim.claim_text])
+        if self.use_embeddings:
+            claim_embedding = self.model.encode([claim.claim_text])
+            similarities = cosine_similarity(claim_embedding, chunk_embeddings)[0]
+        else:
+            # Fallback: Calculate TF-IDF similarity
+            claim_vec = self.vectorizer.transform([claim.claim_text])
+            similarities = cosine_similarity(claim_vec, chunk_embeddings)[0]
 
-        # Calculate similarity with all chunks
-        similarities = cosine_similarity(claim_embedding, chunk_embeddings)[0]
-
-        # Get top-k indices
         top_k_indices = np.argsort(similarities)[-self.top_k:][::-1]
 
-        # Create retrieved passages
         retrieved = []
         for rank, idx in enumerate(top_k_indices):
             passage = RetrievedPassage(

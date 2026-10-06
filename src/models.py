@@ -65,13 +65,13 @@ class ModelClient:
     """Client for interacting with LLM APIs."""
     
     def __init__(self):
-        self.anthropic_client = anthropic.Anthropic(
-            api_key=os.getenv("ANTHROPIC_API_KEY")
-        )
-        self.openai_client = openai.OpenAI(
-            api_key=os.getenv("OPENAI_API_KEY")
-        )
-        
+        # Initialize clients only if API keys are present to avoid crashes
+        anthropic_key = os.getenv("ANTHROPIC_API_KEY")
+        self.anthropic_client = anthropic.Anthropic(api_key=anthropic_key) if anthropic_key else None
+
+        openai_key = os.getenv("OPENAI_API_KEY")
+        self.openai_client = openai.OpenAI(api_key=openai_key) if openai_key else None
+
         # Initialize Google AI
         google_api_key = os.getenv("GOOGLE_API_KEY")
         if google_api_key and GOOGLE_GENAI_AVAILABLE:
@@ -80,13 +80,13 @@ class ModelClient:
                 logger.info("Google AI initialized successfully")
             except Exception as e:
                 logger.warning(f"Failed to initialize Google AI: {str(e)}")
-        
+
         # Initialize Cohere
         self.cohere_client = None
         cohere_api_key = os.getenv("COHERE_API_KEY")
         if cohere_api_key:
             self.cohere_client = cohere.Client(api_key=cohere_api_key)
-        
+
         # Local model client (uses OpenAI-compatible API)
         self.local_client = None
         local_api_base = os.getenv("LOCAL_API_BASE", "http://localhost:8000/v1")
@@ -152,6 +152,8 @@ class ModelClient:
         system_prompt: Optional[str]
     ) -> Dict[str, Any]:
         """Call Anthropic API."""
+        if not self.anthropic_client:
+            raise ValueError("ANTHROPIC_API_KEY not configured in .env")
         try:
             kwargs = {
                 "model": model_id,
@@ -184,27 +186,61 @@ class ModelClient:
         temperature: float,
         system_prompt: Optional[str]
     ) -> Dict[str, Any]:
-        """Call OpenAI API."""
+        """Call OpenAI API (and OpenAI-compatible APIs like Groq/NVIDIA)."""
         try:
+            # Determine which client to use based on model_id
+            model_id_lower = model_id.lower()
+            if "nvidia" in model_id_lower or "meta" in model_id_lower:
+                nvidia_key = os.getenv("NVIDIA_API_KEY")
+                if not nvidia_key:
+                    raise ValueError("NVIDIA_API_KEY not configured in .env")
+
+                client = openai.OpenAI(
+                    api_key=nvidia_key,
+                    base_url="https://integrate.api.nvidia.com/v1"
+                )
+            elif "llama" in model_id_lower or "mixtral" in model_id_lower or "gpt-oss" in model_id_lower or "qwen" in model_id_lower:
+                groq_key = os.getenv("GROQ_API_KEY")
+                if not groq_key:
+                    if self.openai_client:
+                        client = self.openai_client
+                    else:
+                        raise ValueError("GROQ_API_KEY not configured in .env")
+                else:
+                    client = openai.OpenAI(
+                        api_key=groq_key,
+                        base_url="https://api.groq.com/openai/v1"
+                    )
+            elif not self.openai_client:
+                if self.local_client:
+                    client = self.local_client
+                else:
+                    raise ValueError("OpenAI API key not configured and no local client available")
+            else:
+                client = self.openai_client
+
             messages = []
             if system_prompt:
                 messages.append({"role": "system", "content": system_prompt})
             messages.append({"role": "user", "content": prompt})
-            
-            response = self.openai_client.chat.completions.create(
+
+            # IMPORTANT: we must use the model_id passed to the function,
+            # which should be the ACTUAL API model ID (e.g. 'llama-3.1-8b-instant')
+            # not the config key (e.g. 'llama3-8b-8192')
+            response = client.chat.completions.create(
                 model=model_id,
                 messages=messages,
                 max_tokens=max_tokens,
                 temperature=temperature
             )
-            
+
             return {
                 "content": response.choices[0].message.content,
                 "input_tokens": response.usage.prompt_tokens,
                 "output_tokens": response.usage.completion_tokens
             }
         except Exception as e:
-            logger.error(f"OpenAI API call failed: {str(e)}")
+            logger.error(f"OpenAI/Compatible API call failed for {model_id}: {str(e)}")
             raise
     
     @retry_on_error(max_retries=3, backoff_factor=2, exceptions=(Exception,))
