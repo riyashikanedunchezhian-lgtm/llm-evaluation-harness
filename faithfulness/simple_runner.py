@@ -185,6 +185,11 @@ Examples:
         help="Skip summary generation (use existing if available)"
     )
     parser.add_argument(
+        "--output-dir",
+        default="faithfulness/data",
+        help="Output directory (default: faithfulness/data)"
+    )
+    parser.add_argument(
         "--summarize",
         action="store_true",
         help="Generate an executive summary report from existing results"

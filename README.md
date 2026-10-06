@@ -95,6 +95,11 @@ Create a `.env` file in the root directory.
 
 **Note**: You do **not** need all of these keys. To perform a comparative study, you only need **at least two** active API keys (any combination of free or paid). The pipeline will automatically skip any models for which a key is missing.
 
+**Examples of valid setups:**
+- **Free Setup**: Only `GROQ_API_KEY` and `NVIDIA_API_KEY`.
+- **Mixed Setup**: `GROQ_API_KEY` and `ANTHROPIC_API_KEY`.
+- **SOTA Setup**: `ANTHROPIC_API_KEY` and `OPENAI_API_KEY`.
+
 ```env
 # --- Free-Tier Providers (Recommended) ---
 GROQ_API_KEY=your_groq_key_here
