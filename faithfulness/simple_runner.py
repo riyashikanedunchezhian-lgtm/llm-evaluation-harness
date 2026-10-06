@@ -189,7 +189,12 @@ Examples:
         action="store_true",
         help="Generate an executive summary report from existing results"
     )
-    
+    parser.add_argument(
+        "--free-mode",
+        action="store_true",
+        help="Use free-tier models (Groq Llama 3) instead of paid providers"
+    )
+
     args = parser.parse_args()
     
     # If methodology test, run it directly
@@ -246,10 +251,17 @@ Examples:
     config = FaithfulnessConfig(
         dataset_name=args.dataset,
         num_documents=args.num_docs,
-        min_word_count=1500,  # Slightly lower for easier testing
-        summary_models=["claude-3-haiku-20240307"],  # Start with one model for simplicity
+        min_word_count=1500,
         output_dir=args.output_dir
     )
+
+    if args.free_mode:
+        print("Free Mode active: Overriding models to Groq/NVIDIA Free Tiers")
+        config.summary_models = ["llama3-8b-8192", "nvidia/llama-3.1-8b-instruct", "mixtral-8x7b-32768"]
+        config.claim_decomposition_model = "llama3-70b-8192"
+        config.faithfulness_judge_model = "llama3-70b-8192"
+    else:
+        config.summary_models = ["claude-3-haiku-20240307"]
     
     try:
         # Initialize pipeline

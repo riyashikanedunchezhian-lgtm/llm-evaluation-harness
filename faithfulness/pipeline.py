@@ -202,27 +202,35 @@ class FaithfulnessPipeline:
         return results
     
     def _generate_summaries(self):
-        """Generate summaries for all documents using all models."""
+        """Generate summaries for all documents using all available models."""
         for doc in self.documents:
             self.summaries[doc.doc_id] = {}
-            
+
             for model_id in self.config.summary_models:
-                model_config = MODEL_CONFIGS[model_id]
-                
-                print(f"  Generating summary for {doc.doc_id} with {model_config.name}...")
-                
-                # Generate summary using the model
-                summary_prompt = f"Summarize the following document in 3-5 sentences:\n\n{doc.text}"
-                
-                response = self.model_client.call_model(
-                    model_id=model_id,
-                    provider=model_config.provider,
-                    prompt=summary_prompt,
-                    max_tokens=1000,
-                    temperature=0.7
-                )
-                
-                self.summaries[doc.doc_id][model_id] = response.content
+                try:
+                    model_config = MODEL_CONFIGS[model_id]
+
+                    # Check if API key for this provider exists before calling
+                    provider = model_config.provider
+                    # This assumes ModelClient has a check or the env is checked here
+                    # For robustness, we wrap the call in a try-except
+
+                    print(f"  Generating summary for {doc.doc_id} with {model_config.name}...")
+
+                    summary_prompt = f"Summarize the following document in 3-5 sentences:\n\n{doc.text}"
+
+                    response = self.model_client.call_model(
+                        model_id=model_id,
+                        provider=provider,
+                        prompt=summary_prompt,
+                        max_tokens=1000,
+                        temperature=0.7
+                    )
+
+                    self.summaries[doc.doc_id][model_id] = response.content
+                except Exception as e:
+                    print(f"    Warning: Skipping model {model_id} due to error: {e}")
+                    continue
     
     def _decompose_claims(self):
         """Decompose all summaries into atomic claims."""
