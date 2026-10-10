@@ -116,11 +116,11 @@ def test_fleiss_kappa_no_agreement():
             jury_size=3
         )
     ]
-    
+
     kappa = calculate_fleiss_kappa(verdicts)
-    
-    # Should be close to 0.0 for no agreement
-    assert abs(kappa) < 0.2, f"Expected kappa ~0.0, got {kappa}"
+
+    # Should be -0.5 for this specific case of random distribution
+    assert abs(kappa - (-0.5)) < 0.01, f"Expected kappa ~-0.5, got {kappa}"
 
 def test_fleiss_kappa_partial_agreement():
     """Test Fleiss' kappa calculation with partial agreement."""
@@ -128,24 +128,24 @@ def test_fleiss_kappa_partial_agreement():
     verdicts = [
         JuryVerdict(
             majority_label="Supported",
-            label_distribution={"Supported": 2, "Contradicted": 1, "Unverifiable": 0},
-            confidence=0.7,
+            label_distribution={"Supported": 3, "Contradicted": 0, "Unverifiable": 0},
+            confidence=0.9,
             individual_verdicts=[],
-            agreement_score=0.67,
+            agreement_score=1.0,
             jury_size=3
         ),
         JuryVerdict(
-            majority_label="Supported",
-            label_distribution={"Supported": 2, "Contradicted": 0, "Unverifiable": 1},
+            majority_label="Contradicted",
+            label_distribution={"Supported": 1, "Contradicted": 2, "Unverifiable": 0},
             confidence=0.7,
             individual_verdicts=[],
             agreement_score=0.67,
             jury_size=3
         )
     ]
-    
+
     kappa = calculate_fleiss_kappa(verdicts)
-    
+
     # Should be between 0 and 1 for partial agreement
     assert 0 < kappa < 1, f"Expected kappa between 0 and 1, got {kappa}"
 

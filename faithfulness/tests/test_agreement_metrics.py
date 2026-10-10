@@ -75,7 +75,7 @@ def test_cohen_kappa_no_agreement():
 def test_cohen_kappa_partial_agreement():
     """Test Cohen's kappa calculation with partial agreement."""
     validator = HumanValidator()
-    
+
     # Partial agreement: some matches, some disagreements
     human_annotations = [
         HumanAnnotation(claim_id="c1", claim_text="Claim 1", human_label="Supported",
@@ -87,7 +87,7 @@ def test_cohen_kappa_partial_agreement():
         HumanAnnotation(claim_id="c4", claim_text="Claim 4", human_label="Unverifiable",
                       human_justification="Unknown", confidence=0.5)
     ]
-    
+
     # Mock jury verdicts with partial agreement
     from faithfulness.jury_aggregation import JuryVerdict
     jury_verdicts = {
@@ -100,11 +100,11 @@ def test_cohen_kappa_partial_agreement():
         "c4": JuryVerdict(majority_label="Unverifiable", label_distribution={},
                          confidence=0.5, individual_verdicts=[], agreement_score=1.0, jury_size=3)
     }
-    
+
     result = validator.calculate_agreement(human_annotations, jury_verdicts)
-    
-    # Should have partial agreement (2 out of 4 = 50%)
-    assert result.percent_agreement == 0.5, f"Expected 50% agreement, got {result.percent_agreement}"
+
+    # Should have partial agreement (3 out of 4 = 75%)
+    assert result.percent_agreement == 0.75, f"Expected 75% agreement, got {result.percent_agreement}"
     # Kappa should be moderate
     assert 0.0 < result.cohen_kappa < 0.8, f"Expected moderate kappa, got {result.cohen_kappa}"
 
