@@ -48,6 +48,11 @@ def main():
         help="Use sequential judge execution instead of parallel (slower but more predictable)"
     )
     parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Run evaluation without making actual API calls (for testing)"
+    )
+    parser.add_argument(
         "--output",
         default="data/results.json",
         help="Output path for results JSON"
@@ -84,9 +89,10 @@ def main():
         model_ids=args.models,
         test_set_path="prompts/test_set.json",
         parallel_judge=not args.sequential,
-        progress_callback=progress_callback
+        progress_callback=progress_callback,
+        dry_run=args.dry_run
     )
-    
+
     # Run evaluation
     results = harness.run_evaluation(
         categories=args.categories,

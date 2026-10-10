@@ -17,7 +17,7 @@ class ModelConfig:
     temperature: float = 0.7
     api_base: str = None  # For local models or custom endpoints
 
-# Model configurations with pricing (as of 2024)
+# Model configurations with pricing (as of 2025-2026)
 MODEL_CONFIGS: Dict[str, ModelConfig] = {
     "claude-3-5-sonnet-20241022": ModelConfig(
         name="Claude 3.5 Sonnet",
@@ -41,8 +41,8 @@ MODEL_CONFIGS: Dict[str, ModelConfig] = {
         name="GPT-4o",
         provider="openai",
         model_id="gpt-4o",
-        input_price_per_1k=5.0,
-        output_price_per_1k=15.0,
+        input_price_per_1k=2.50,
+        output_price_per_1k=10.0,
         max_tokens=4096,
         temperature=0.7
     ),
@@ -59,8 +59,8 @@ MODEL_CONFIGS: Dict[str, ModelConfig] = {
         name="Gemini 1.5 Pro",
         provider="google",
         model_id="gemini-1.5-pro",
-        input_price_per_1k=3.5,
-        output_price_per_1k=10.5,
+        input_price_per_1k=1.25,
+        output_price_per_1k=5.0,
         max_tokens=8192,
         temperature=0.7
     ),
@@ -77,8 +77,8 @@ MODEL_CONFIGS: Dict[str, ModelConfig] = {
         name="Command R+",
         provider="cohere",
         model_id="command-r-plus",
-        input_price_per_1k=3.0,
-        output_price_per_1k=15.0,
+        input_price_per_1k=2.50,
+        output_price_per_1k=10.0,
         max_tokens=4096,
         temperature=0.7
     ),
@@ -86,8 +86,8 @@ MODEL_CONFIGS: Dict[str, ModelConfig] = {
         name="Command R",
         provider="cohere",
         model_id="command-r",
-        input_price_per_1k=0.50,
-        output_price_per_1k=1.50,
+        input_price_per_1k=0.15,
+        output_price_per_1k=0.60,
         max_tokens=4096,
         temperature=0.7
     ),

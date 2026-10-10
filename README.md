@@ -60,6 +60,7 @@ Evaluating a summary as a single entity is prone to "averaging bias," where a mo
 LLM judges can hallucinate or rely on internal knowledge (training data) rather than the provided source. To prevent this, we implement **Retrieval-Augmented Verification**.
 
 - **Dense Retrieval**: Using `sentence-transformers`, the system indexes the source document into chunks. For every atomic claim, it retrieves the top-3 most semantically similar passages.
+- **TF-IDF Fallback**: Ensures the system remains operational on environments where PyTorch DLLs fail.
 - **Constrained Context**: The Judge is provided *only* with these passages. If the evidence is not in the retrieved chunks, the judge is instructed to label the claim as **Unverifiable**.
 - **Benefit**: This forces the LLM to act as a "fact-checker" rather than a "generator," drastically reducing hallucinations.
 
@@ -144,6 +145,7 @@ Execute the full pipeline using SOTA models (Sonnet/GPT-4o):
 ```bash
 python faithfulness/simple_runner.py --num-docs 30 --dataset govreport
 ```
+
 ---
 
 ## 📊 Expected Output & Analysis
@@ -159,6 +161,8 @@ The pipeline generates structured results in `faithfulness/data/` and `faithfuln
 | `pipeline_results.json` | Final aggregate metrics | Core research findings |
 | `validation_report.json` | Human vs. Automated agreement | System reliability ($\kappa$) |
 
+---
+
 ## 📝 Research Protocol Summary
 
 1. **Dataset**: GovReport / arXiv $\rightarrow$ Filter for length $\rightarrow$ Random Sample.
@@ -166,3 +170,35 @@ The pipeline generates structured results in `faithfulness/data/` and `faithfuln
 3. **Decomposition**: Extract atomic claims $\rightarrow$ Validate atomicity.
 4. **Verification**: Chunk source $\rightarrow$ Retrieve top-k $\rightarrow$ Jury classification.
 5. **Analysis**: Calculate $\kappa$ $\rightarrow$ Correlate Faithfulness vs. Fluency $\rightarrow$ Identify failure patterns.
+
+---
+
+## 🧪 Recent Enhancements
+
+- **Database Persistence**: Added `src/database.py` (SQLite) to store evaluation results, bias checks, and aggregated metrics for reproducible analysis.
+- **Harness Improvements**: 
+  - Dry‑run mode for logic validation without API calls.
+  - Progress callbacks and parallel test‑case execution.
+  - Automatic saving of aggregated metrics after each run.
+  - Integrated position‑bias checking via `src/judge.py`.
+- **Free‑Tier Support**: 
+  - `--free-mode` flag in `simple_runner.py` activates zero‑cost execution using Groq + NVIDIA NIM (Llama 3/Mixtral).
+  - Robust API‑key handling: pipeline skips missing keys and requires a minimum of two active keys.
+- **Documentation**: 
+  - Created `faithfulness/ARCHITECTURE.md` detailing RAV logic, jury aggregation, and research KPIs.
+  - Added automated results summarization (`SummaryGenerator`) producing `RESULTS_SUMMARY.md`.
+- **Testing Suite**: 
+  - Unit tests under `tests/` covering aggregation (`test_aggregation.py`), parallel jury (`test_parallel_jury.py`), and position bias (`test_position_bias.py`).
+
+---
+
+## ⚙️ Extending the Framework
+
+To add a new LLM provider:
+1. Add API key to `.env`.
+2. Register the model in `src/config.py` under `MODEL_CONFIGS` (specify provider, model ID, pricing, and parameters).
+3. The harness will automatically include it in evaluations.
+
+To change jury size or enable parallel judge execution, adjust the corresponding constants in `src/config.py`.
+
+For detailed contribution guidelines, see the source code comments and architecture guide.

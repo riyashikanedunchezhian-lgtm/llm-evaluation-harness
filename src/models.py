@@ -151,23 +151,23 @@ class ModelClient:
         temperature: float,
         system_prompt: Optional[str]
     ) -> Dict[str, Any]:
-        """Call Anthropic API."""
+        """Call Anthropic API with prompt caching support."""
         if not self.anthropic_client:
             raise ValueError("ANTHROPIC_API_KEY not configured in .env")
         try:
             kwargs = {
                 "model": model_id,
                 "max_tokens": max_tokens,
-                "messages": [{"role": "user", "content": prompt}]
+                "messages": [{"role": "user", "content": prompt, "cache_control": {"type": "ephemeral"}}]
             }
-            
+
             if system_prompt:
                 kwargs["system"] = system_prompt
-            
+
             # Anthropic's newer API doesn't accept temperature in messages.create
             # It's set at the client level or not supported in this endpoint
             response = self.anthropic_client.messages.create(**kwargs)
-            
+
             return {
                 "content": response.content[0].text,
                 "input_tokens": response.usage.input_tokens,
@@ -270,11 +270,11 @@ class ModelClient:
                     temperature=temperature
                 )
             )
-            
-            # Token counting for Google is approximate
-            input_tokens = len(prompt.split())  # Rough estimate
-            output_tokens = len(response.text.split())  # Rough estimate
-            
+
+            # Use actual token counts from response usage metadata
+            input_tokens = response.usage_metadata.prompt_token_count
+            output_tokens = response.usage_metadata.candidates_token_count
+
             return {
                 "content": response.text,
                 "input_tokens": input_tokens,
